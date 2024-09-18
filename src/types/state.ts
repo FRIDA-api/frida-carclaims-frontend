@@ -1,4 +1,5 @@
 import { Dayjs } from 'dayjs';
+import { EnumDeclaration } from 'typescript';
 
 export interface FormState {
   language: string;
@@ -190,7 +191,7 @@ export interface DriverOfInsuranceHolderFormState {
 }
 
 export interface DriverOfOtherInsuranceHolderFormState {
-  otherDriverSalutation?: string | 'Male' | 'Female' | '';
+  otherDriverSalutation?: 'Male' | 'Female' | '';
   otherDriverHolderName?: string;
   otherDriverHolderSurName?: string;
   otherDriverHolderStreet?: string;
@@ -220,7 +221,7 @@ export interface WitnessDetails {
   lastName?: string;
   street?: string;
   houseNr?: string;
-  postalCode?: number;
+  postalCode?: string;
   place?: string;
   telephone?: string;
   email?: string;
