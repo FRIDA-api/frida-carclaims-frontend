@@ -1,0 +1,68 @@
+{
+  "name": "carclaims-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.11.9",
+    "@mui/joy": "^5.0.0-alpha.67",
+    "@mui/material": "^5.11.8",
+    "@mui/x-date-pickers": "^5.0.18",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "bootstrap": "^5.2.3",
+    "dayjs": "^1.11.7",
+    "formik": "^2.2.9",
+    "moment": "^2.29.4",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.7.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-router-dom": "^6.9.0",
+    "react-scripts": "5.0.1",
+    "serve": "^14.2.0",
+    "typescript": "^4.4.2",
+    "web-vitals": "^2.1.0",
+    "yup": "^1.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "CI=false react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy": "yarn build:prod & yarn serve",
+    "build:prod": "NODE_ENV=production react-scripts build",
+    "serve": "serve -l 3090 build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react-dropzone": "^5.1.0",
+    "@types/react-router-dom": "^5.3.3",
+    "cross-env": "^7.0.3",
+    "sass": "^1.79.1"
+  }
+}
