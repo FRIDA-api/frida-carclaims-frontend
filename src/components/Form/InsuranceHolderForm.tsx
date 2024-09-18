@@ -58,7 +58,7 @@ export function InsuranceHolderForm() {
     >
       {({ errors, values, handleChange, setValues, handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <Grid container xs={12} id="insurance-holder">
+          <Grid item container xs={12} id="insurance-holder">
             <Grid item xs={12}>
               <Typography variant="h4" className="mb-3">
                 Angaben zum Versicherungsnehmer A
@@ -154,7 +154,7 @@ export function InsuranceHolderForm() {
                   />
                 </Stack>
               </Grid>
-              <Grid md={4} xs={12} className="mb-3">
+              <Grid item md={4} xs={12} className="mb-3">
                 <FormControl fullWidth>
                   <InputLabel>
                     Beteht Berechtigung zum Vorsteuerabzug?

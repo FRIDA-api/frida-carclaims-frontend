@@ -134,9 +134,9 @@ export function OtherInsuranceHolderForm() {
                 />
               </Stack>
             </Grid>
-            <Grid md={4} xs={12} className="mb-3">
+            <Grid item md={4} xs={12} className="mb-3">
               <FormControl fullWidth>
-                <InputLabel>Beteht Berechtigung zum Vorsteuerabzug?</InputLabel>
+                <InputLabel>Besteht Berechtigung zum Vorsteuerabzug?</InputLabel>
                 <Field
                   name="otherPretaxes"
                   values={values.otherPretaxes}
