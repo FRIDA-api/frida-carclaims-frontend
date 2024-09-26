@@ -30,40 +30,6 @@ import { OtherInsuranceHolderForm } from '../components/Form';
 import dayjs from 'dayjs';
 import { Buffer } from 'buffer';
 
-// Funktion, um alle Dateien in Base64 zu serialisieren
-// const serializeFilesToBase64 = async () => {
-//   const serializedFiles: Array<{ name: string; base64: string }> = [];
-
-// Iteriere über jede Datei und konvertiere sie in Base64
-//   for (const file of files) {
-//     const base64 = await fileToBase64(file);
-//     serializedFiles.push({
-//       name: file.name, // Dateiname
-//       base64, // Base64-kodierter Inhalt
-//     });
-//   }
-
-//   console.log('Serialisierte Dateien:', serializedFiles);
-//   return serializedFiles;
-// };
-
-// Hilfsfunktion, um eine Datei in Base64 zu konvertieren
-// const fileToBase64 = (file: File): Promise<string> => {
-//   return new Promise((resolve, reject) => {
-//     const reader = new FileReader();
-//     reader.readAsDataURL(file); // Liest die Datei als Data URL (Base64)
-
-//     reader.onload = () => {
-//       const base64String = reader.result as string;
-//       resolve(base64String.split(',')[1]); // Entferne den Data URL Teil, um nur das Base64 zu erhalten
-//     };
-
-//     reader.onerror = (error) => {
-//       reject(error);
-//     };
-//   });
-// };
-
 // Funktion zum Extrahieren des MIME-Typs aus der Bild-URL
 const extractMimeType = (url: string): string => {
   const mimeTypeMatch = url.match(/data:(.*?);base64,/);
@@ -220,8 +186,6 @@ export function mapDTO(): Claimsdata {
           path: files[index]?.path || 'Hello', // Use the path from files
         };
       });
-
-    console.log('otherDriverholderImgs', otherDriverholderImgs);
 
     otherVehicleDriver = {
       personalInformation: {
@@ -388,8 +352,6 @@ export function mapDTO(): Claimsdata {
     existingWitness = JSON.parse(witnessesString).existingWitness;
     witnessesCount = JSON.parse(witnessesString).witnessesCount;
 
-    console.log(JSON.parse(witnessesString).witnesses);
-    console.log(witnesses[0]);
     witness = witnesses.map((witnesses) => {
       return {
         personalInformation: {
@@ -453,7 +415,6 @@ export function mapDTO(): Claimsdata {
   const injuredDetailsString = sessionStorage.getItem('injuredDetails');
   if (injuredDetailsString) {
     injuredDetails = JSON.parse(injuredDetailsString);
-    console.log(injuredDetails);
   }
 
   // MiscellaneousDamages
