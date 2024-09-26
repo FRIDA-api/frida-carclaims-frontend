@@ -57,12 +57,6 @@ export interface Claimsdata {
      */
     accidentTime?: string;
     /**
-     * 50°56’28.8″N 6°57’30.0″E Der erste Wert liegt zwischen -90 und 90, die Längengradangabe zwischen -180 und 180. // Nutzt Du die Bogenmaßangaben, muss am Schluss ein „W“ für „West“ oder „E“ für „East“ stehen
-     * @type {string}
-     * @memberof Claimsdata
-     */
-    accidentCoordinates?: string;
-    /**
      * PLZ
      * @type {string}
      * @memberof Claimsdata
@@ -103,13 +97,13 @@ export interface Claimsdata {
      * @type {string}
      * @memberof Claimsdata
      */
-    propertyDamage: ClaimsdataPropertyDamageEnum;
+    hasVehicleDamage: ClaimsdataHasVehicleDamageEnum;
     /**
-     * Beschreibung Sachschäden
+     * Beschreibung der Sachschäden
      * @type {string}
      * @memberof Claimsdata
      */
-    propertyDamageDescription?: string;
+    vehicleDamageDescription?: string;
     /**
      * Verletzte Person ja/nein
      * @type {string}
@@ -184,12 +178,12 @@ export type ClaimsdataLanguageEnum = typeof ClaimsdataLanguageEnum[keyof typeof 
 /**
  * @export
  */
-export const ClaimsdataPropertyDamageEnum = {
+export const ClaimsdataHasVehicleDamageEnum = {
     NotSpecified: 'not_specified',
     False: 'false',
     True: 'true'
 } as const;
-export type ClaimsdataPropertyDamageEnum = typeof ClaimsdataPropertyDamageEnum[keyof typeof ClaimsdataPropertyDamageEnum];
+export type ClaimsdataHasVehicleDamageEnum = typeof ClaimsdataHasVehicleDamageEnum[keyof typeof ClaimsdataHasVehicleDamageEnum];
 
 /**
  * @export
@@ -216,7 +210,7 @@ export type ClaimsdataWitnessExistsEnum = typeof ClaimsdataWitnessExistsEnum[key
  * Check if a given object implements the Claimsdata interface.
  */
 export function instanceOfClaimsdata(value: object): value is Claimsdata {
-    if (!('propertyDamage' in value) || value['propertyDamage'] === undefined) return false;
+    if (!('hasVehicleDamage' in value) || value['hasVehicleDamage'] === undefined) return false;
     if (!('injuredPerson' in value) || value['injuredPerson'] === undefined) return false;
     if (!('witnessExists' in value) || value['witnessExists'] === undefined) return false;
     if (!('policyholder' in value) || value['policyholder'] === undefined) return false;
@@ -237,15 +231,14 @@ export function ClaimsdataFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'language': json['language'] == null ? undefined : json['language'],
         'accidentDate': json['accidentDate'] == null ? undefined : (new Date(json['accidentDate'])),
         'accidentTime': json['accidentTime'] == null ? undefined : json['accidentTime'],
-        'accidentCoordinates': json['accidentCoordinates'] == null ? undefined : json['accidentCoordinates'],
         'accidentPostalCode': json['accidentPostalCode'] == null ? undefined : json['accidentPostalCode'],
         'accidentCity': json['accidentCity'] == null ? undefined : json['accidentCity'],
         'accidentStreetName': json['accidentStreetName'] == null ? undefined : json['accidentStreetName'],
         'accidentStreetNumber': json['accidentStreetNumber'] == null ? undefined : json['accidentStreetNumber'],
         'accidentDescription': json['accidentDescription'] == null ? undefined : json['accidentDescription'],
         'accidentPoliceNumber': json['accidentPoliceNumber'] == null ? undefined : json['accidentPoliceNumber'],
-        'propertyDamage': json['propertyDamage'],
-        'propertyDamageDescription': json['propertyDamageDescription'] == null ? undefined : json['propertyDamageDescription'],
+        'hasVehicleDamage': json['hasVehicleDamage'],
+        'vehicleDamageDescription': json['vehicleDamageDescription'] == null ? undefined : json['vehicleDamageDescription'],
         'injuredPerson': json['injuredPerson'],
         'injuredPersonNumber': json['injuredPersonNumber'] == null ? undefined : json['injuredPersonNumber'],
         'witnessExists': json['witnessExists'],
@@ -267,15 +260,14 @@ export function ClaimsdataToJSON(value?: Claimsdata | null): any {
         'language': value['language'],
         'accidentDate': value['accidentDate'] == null ? undefined : ((value['accidentDate']).toISOString().substring(0,10)),
         'accidentTime': value['accidentTime'],
-        'accidentCoordinates': value['accidentCoordinates'],
         'accidentPostalCode': value['accidentPostalCode'],
         'accidentCity': value['accidentCity'],
         'accidentStreetName': value['accidentStreetName'],
         'accidentStreetNumber': value['accidentStreetNumber'],
         'accidentDescription': value['accidentDescription'],
         'accidentPoliceNumber': value['accidentPoliceNumber'],
-        'propertyDamage': value['propertyDamage'],
-        'propertyDamageDescription': value['propertyDamageDescription'],
+        'hasVehicleDamage': value['hasVehicleDamage'],
+        'vehicleDamageDescription': value['vehicleDamageDescription'],
         'injuredPerson': value['injuredPerson'],
         'injuredPersonNumber': value['injuredPersonNumber'],
         'witnessExists': value['witnessExists'],
