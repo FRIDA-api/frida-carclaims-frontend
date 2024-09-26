@@ -60,6 +60,8 @@ export function WitnessesForm() {
     <Formik
       initialValues={initialValues}
       onSubmit={(values) => {
+        const string = JSON.stringify(values);
+        sessionStorage.setItem('witness', string);
         console.log(JSON.parse(sessionStorage.getItem('carclaimsDetails')!));
         console.log(JSON.parse(sessionStorage.getItem('injuredDetails')!));
         console.log(
