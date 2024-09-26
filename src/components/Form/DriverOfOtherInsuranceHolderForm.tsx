@@ -139,7 +139,11 @@ export function DriverOfOtherInsuranceHolderForm() {
       enableReinitialize
       initialValues={initialState}
       onSubmit={(values) => {
-        console.log(values);
+        const extendedValues = {
+          ...values,
+          files,
+          imgsURL,
+        };
         console.log(JSON.parse(sessionStorage.getItem('carclaimsDetails')!));
         console.log(JSON.parse(sessionStorage.getItem('injuredDetails')!));
         console.log(
@@ -148,12 +152,12 @@ export function DriverOfOtherInsuranceHolderForm() {
         console.log(JSON.parse(sessionStorage.getItem('insurance-holder-b')!));
         console.log(JSON.parse(sessionStorage.getItem('driver-a')!));
         console.log(JSON.parse(sessionStorage.getItem('insurance-holder-a')!));
-        const string = JSON.stringify(values);
+        const string = JSON.stringify(extendedValues);
         sessionStorage.setItem('driver-b', string);
         navigate('/witnesses');
       }}
     >
-      {({ values, errors, handleSubmit, handleChange, setValues }) => (
+      {({ values, errors, handleSubmit, handleChange, setFieldValue }) => (
         <form onSubmit={handleSubmit}>
           <Grid item xs={12} id="other-driver-of-holder">
             <Typography variant="h6" className="mb-3">

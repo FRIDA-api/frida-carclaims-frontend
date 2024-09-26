@@ -139,8 +139,13 @@ export function DriverOfInsuranceHolderForm() {
       enableReinitialize
       initialValues={initialState}
       onSubmit={(values) => {
+        const extendedValues = {
+          ...values,
+          files, // Save files
+          imgsURL, // Save image URLs
+        };
         console.log(values);
-        const string = JSON.stringify(values);
+        const string = JSON.stringify(extendedValues);
         sessionStorage.setItem('driver-a', string);
         navigate('/injured');
       }}
