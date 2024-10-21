@@ -31,10 +31,29 @@ import dayjs from 'dayjs';
 import { Buffer } from 'buffer';
 
 // Funktion zum Extrahieren des MIME-Typs aus der Bild-URL
-const extractMimeType = (url: string): string => {
+function extractMimeType(url: string): string {
   const mimeTypeMatch = url.match(/data:(.*?);base64,/);
   return mimeTypeMatch ? mimeTypeMatch[1] : 'application/octet-stream';
-};
+}
+
+function createImageBlobs(
+  imgsURL: string[],
+  files: File &
+    {
+      path?: string;
+    }[]
+): { file: Blob; path: string }[] {
+  return imgsURL.map((url: string, index: number) => {
+    const mimeType = extractMimeType(url);
+    const base64Data = url.split(',')[1];
+    const byteArray = Buffer.from(base64Data, 'base64');
+
+    return {
+      file: new Blob([byteArray], { type: mimeType }),
+      path: files[index]?.path || 'Hello', // Verwende den Pfad aus files oder 'Hello' als Fallback
+    };
+  });
+}
 
 export function mapDTO(): Claimsdata {
   // Log Session Storage Objects
@@ -87,24 +106,17 @@ export function mapDTO(): Claimsdata {
     const driverHolderFileUploads = JSON.parse(driverHolderString);
     const {
       imgsURL,
-      files
+      files,
     }: {
       imgsURL: string[];
-      files: File & {
-        path?: string;
-      }[];
+      files: File &
+        {
+          path?: string;
+        }[];
     } = driverHolderFileUploads;
 
     const driverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
-    imgsURL.map((imgsURL, index) => {
-      const mimeType = extractMimeType(imgsURL);
-      const base64Data = imgsURL.split(',')[1];
-      const byteArray = Buffer.from(base64Data, 'base64');
-      return {
-        image: new Blob([byteArray], { type: mimeType }),
-        path: files[index]?.path || 'Hello', // Use the path from files
-      };
-    });
+      createImageBlobs(imgsURL, files);
 
     vehicleDriver = {
       personalInformation: {
@@ -168,24 +180,17 @@ export function mapDTO(): Claimsdata {
     const otherDriverHolderFileUploads = JSON.parse(driverHolderOtherString);
     const {
       imgsURL,
-      files
+      files,
     }: {
       imgsURL: string[];
-      files: File & {
-        path?: string;
-      }[];
+      files: File &
+        {
+          path?: string;
+        }[];
     } = otherDriverHolderFileUploads;
 
     const otherDriverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
-      imgsURL.map((imgsURL, index) => {
-        const mimeType = extractMimeType(imgsURL);
-        const base64Data = imgsURL.split(',')[1];
-        const byteArray = Buffer.from(base64Data, 'base64');
-        return {
-          image: new Blob([byteArray], { type: mimeType }),
-          path: files[index]?.path || 'Hello', // Use the path from files
-        };
-      });
+      createImageBlobs(imgsURL, files);
 
     otherVehicleDriver = {
       personalInformation: {
@@ -451,14 +456,16 @@ export function mapDTO(): Claimsdata {
     accidentDescription: accidentDetails,
     accidentPoliceNumber: processingNr,
 
-    hasVehicleDamage: miscellaneousDamagesDetails.otherDamages
-      ? ClaimsdataHasVehicleDamageEnum.True
-      : ClaimsdataHasVehicleDamageEnum.False,
+    hasVehicleDamage:
+      miscellaneousDamagesDetails.otherDamages === '1'
+        ? ClaimsdataHasVehicleDamageEnum.True
+        : ClaimsdataHasVehicleDamageEnum.False,
     vehicleDamageDescription: miscellaneousDamagesDetails.damages,
 
-    injuredPerson: injuredDetails.injured
-      ? ClaimsdataInjuredPersonEnum.True
-      : ClaimsdataInjuredPersonEnum.False,
+    injuredPerson:
+      injuredDetails.injured === '1'
+        ? ClaimsdataInjuredPersonEnum.True
+        : ClaimsdataInjuredPersonEnum.False,
     injuredPersonNumber: injuredDetails.injuredCount?.toString(),
 
     witnessExists:

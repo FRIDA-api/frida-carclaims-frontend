@@ -47,6 +47,22 @@ const witnessesFormValidator = Yup.object().shape({
   ),
 });
 
+export async function sendClaimsdata(){
+  // Create Claims Object
+  const claimsdata : Claimsdata = mapDTO();
+
+  // Create Post Request
+  const postRequest : CreateClaimRequest = {
+    claimsdata
+  }
+
+  console.log(postRequest);
+  // API Object
+  const api : ClaimsApi = new ClaimsApi();
+
+  return  api.createClaim(postRequest);
+}
+
 export function WitnessesForm() {
   const navigate = useNavigate();
   const initialValues: WitnessesFormState = {
@@ -62,16 +78,16 @@ export function WitnessesForm() {
       onSubmit={(values) => {
         const string = JSON.stringify(values);
         sessionStorage.setItem('witness', string);
-        console.log(JSON.parse(sessionStorage.getItem('carclaimsDetails')!));
-        console.log(JSON.parse(sessionStorage.getItem('injuredDetails')!));
-        console.log(
-          JSON.parse(sessionStorage.getItem('miscellaneousDamages')!)
-        );
-        console.log(JSON.parse(sessionStorage.getItem('insurance-holder-b')!));
-        console.log(JSON.parse(sessionStorage.getItem('driver-a')!));
-        console.log(JSON.parse(sessionStorage.getItem('insurance-holder-a')!));
-        console.log(values);
-        alert('Submit data');
+        // console.log(JSON.parse(sessionStorage.getItem('carclaimsDetails')!));
+        // console.log(JSON.parse(sessionStorage.getItem('injuredDetails')!));
+        // console.log(
+        //   JSON.parse(sessionStorage.getItem('miscellaneousDamages')!)
+        // );
+        // console.log(JSON.parse(sessionStorage.getItem('insurance-holder-b')!));
+        // console.log(JSON.parse(sessionStorage.getItem('driver-b')!));
+        // console.log(JSON.parse(sessionStorage.getItem('insurance-holder-a')!));
+        // console.log(values);
+        // alert('Submit data');
       }}
       // validationSchema={witnessesFormValidator}
     >
@@ -283,7 +299,7 @@ export function WitnessesForm() {
                 <Button variant="contained" color="error" onClick={handlePrev}>
                   Zurück
                 </Button>
-                <Button variant="contained" color="primary" type="submit">
+                <Button variant="contained" color="primary" onClick={sendClaimsdata}type="submit">
                   Senden
                 </Button>
               </ButtonGroup>
