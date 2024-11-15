@@ -21,10 +21,10 @@ import { mapValues } from '../runtime';
 export interface VehicleDriverDamagedCarImagesInner {
     /**
      * Bild vom Schaden || native FileAPI des Clients (Dunkelverarbeitung)
-     * @type {Blob}
+     * @type {string}
      * @memberof VehicleDriverDamagedCarImagesInner
      */
-    file?: Blob;
+    file?: string;
     /**
      * Pfad zum Bild
      * @type {string}

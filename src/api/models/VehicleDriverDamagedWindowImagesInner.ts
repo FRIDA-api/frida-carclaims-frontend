@@ -21,10 +21,10 @@ import { mapValues } from '../runtime';
 export interface VehicleDriverDamagedWindowImagesInner {
     /**
      * Bild vom Glasschaden || native FileAPI des Clients (Dunkelverarbeitung)
-     * @type {Blob}
+     * @type {string}
      * @memberof VehicleDriverDamagedWindowImagesInner
      */
-    file?: Blob;
+    file?: string;
     /**
      * Pfad zum Bild
      * @type {string}

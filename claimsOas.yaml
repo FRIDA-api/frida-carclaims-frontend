@@ -328,7 +328,7 @@ components:
             properties:
               file:
                 type: string
-                format: binary
+                format: byte
                 description: Bild vom Schaden || native FileAPI des Clients (Dunkelverarbeitung)
               path:
                 type: string
@@ -342,7 +342,7 @@ components:
             properties:
               file:
                 type: string
-                format: binary
+                format: byte
                 description: Bild vom Glasschaden || native FileAPI des Clients (Dunkelverarbeitung)
               path:
                 type: string

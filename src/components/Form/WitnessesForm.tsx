@@ -16,6 +16,9 @@ import { WitnessesFormState } from '../../types';
 import * as Yup from 'yup';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useNavigate } from 'react-router';
+import { mapDTO } from '../../mapping/dtoMapper';
+import { ClaimsApi, Claimsdata, CreateClaimRequest } from '../../api';
+import { Alert } from 'react-bootstrap';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const witnessesFormValidator = Yup.object().shape({
@@ -47,20 +50,24 @@ const witnessesFormValidator = Yup.object().shape({
   ),
 });
 
-export async function sendClaimsdata(){
-  // Create Claims Object
-  const claimsdata : Claimsdata = mapDTO();
-
+export async function sendClaimsdataRequest() {
   // Create Post Request
-  const postRequest : CreateClaimRequest = {
-    claimsdata
-  }
-
-  console.log(postRequest);
+  const postRequest: CreateClaimRequest = mapDTO();
   // API Object
-  const api : ClaimsApi = new ClaimsApi();
+  const api: ClaimsApi = new ClaimsApi();
 
-  return  api.createClaim(postRequest);
+  return api.createClaim(postRequest);
+}
+
+export async function sendClaimsdata() {
+  sendClaimsdataRequest()
+    .then((response: Claimsdata) => {
+      console.log('This is my Response: ' + JSON.stringify(response));
+      alert('Schaden wurde erfolgreich übertragen!');
+    })
+    .catch((error) => {
+      console.error('Fehler beim Übermitteln der Schadendaten', error);
+    });
 }
 
 export function WitnessesForm() {
@@ -299,7 +306,12 @@ export function WitnessesForm() {
                 <Button variant="contained" color="error" onClick={handlePrev}>
                   Zurück
                 </Button>
-                <Button variant="contained" color="primary" onClick={sendClaimsdata}type="submit">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={sendClaimsdata}
+                  type="submit"
+                >
                   Senden
                 </Button>
               </ButtonGroup>

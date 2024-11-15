@@ -15,6 +15,7 @@ import {
   Witness,
   ClaimsdataHasVehicleDamageEnum,
   VehicleDriverDamagedCarImagesInner,
+  CreateClaimRequest,
 } from '../api';
 import {
   CarclaimsDetailsState,
@@ -29,6 +30,7 @@ import {
 import { OtherInsuranceHolderForm } from '../components/Form';
 import dayjs from 'dayjs';
 import { Buffer } from 'buffer';
+import { Console } from 'console';
 
 // Funktion zum Extrahieren des MIME-Typs aus der Bild-URL
 function extractMimeType(url: string): string {
@@ -42,20 +44,19 @@ function createImageBlobs(
     {
       path?: string;
     }[]
-): { file: Blob; path: string }[] {
+): { file: string; path: string }[] {
   return imgsURL.map((url: string, index: number) => {
     const mimeType = extractMimeType(url);
     const base64Data = url.split(',')[1];
-    const byteArray = Buffer.from(base64Data, 'base64');
 
     return {
-      file: new Blob([byteArray], { type: mimeType }),
+      file: base64Data,
       path: files[index]?.path || 'Hello', // Verwende den Pfad aus files oder 'Hello' als Fallback
     };
   });
 }
 
-export function mapDTO(): Claimsdata {
+export function mapDTO(): CreateClaimRequest {
   // Log Session Storage Objects
   // console.log('carclaimsDetails');
   // console.log(JSON.parse(sessionStorage.getItem('carclaimsDetails')!));
@@ -191,6 +192,8 @@ export function mapDTO(): Claimsdata {
 
     const otherDriverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
       createImageBlobs(imgsURL, files);
+
+      console.log("Images Driver B: " + otherDriverholderImgs);
 
     otherVehicleDriver = {
       personalInformation: {
@@ -481,5 +484,5 @@ export function mapDTO(): Claimsdata {
     otherPolicyholder: otherPolicyholder,
   };
 
-  return claimsdata;
+  return {claimsdata} as CreateClaimRequest;
 }
