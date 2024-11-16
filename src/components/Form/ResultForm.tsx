@@ -15,8 +15,8 @@ export function ResultForm() {
       maxWidth: '100%',
       boxSizing: 'border-box',
       overflowX: 'auto',
-      backgroundImage:
-      'linear-gradient(190deg, rgb(20, 117, 115), rgb(25, 30, 40))',
+      // backgroundImage:
+      // 'linear-gradient(190deg, rgb(20, 117, 115), rgb(25, 30, 40))',
     },
     column: {
       flex: '1 1 45%',
@@ -72,7 +72,7 @@ export function ResultForm() {
   };
 
   return (
-    <div style={styles.gradientBackground}>
+    // <div style={styles.gradientBackground}>
       <div style={styles.container}>
         <div style={styles.column}>
           <h2>Request</h2>
@@ -123,6 +123,6 @@ export function ResultForm() {
           </Button>
         </div>
       </div>
-    </div>
+    // </div>
   );
 }
