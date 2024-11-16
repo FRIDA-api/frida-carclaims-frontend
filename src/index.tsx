@@ -16,6 +16,7 @@ import OtherInsuranceHolderPage from './routes/insurance-holder-b';
 import DriverOfBPage from './routes/driver-of-b';
 import WitnessesPage from './routes/witnesses';
 import DisclaimerPage from './routes/disclaimer';
+import ResultPage from './routes/request-result';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: '/witnesses',
     element: <WitnessesPage />,
+  },
+  {
+    path: '/results',
+    element: <ResultPage />,
   },
 ]);
 

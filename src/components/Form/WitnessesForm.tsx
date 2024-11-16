@@ -18,7 +18,6 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import { useNavigate } from 'react-router';
 import { mapDTO } from '../../mapping/dtoMapper';
 import { ClaimsApi, Claimsdata, CreateClaimRequest } from '../../api';
-import { Alert } from 'react-bootstrap';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const witnessesFormValidator = Yup.object().shape({
@@ -53,22 +52,13 @@ const witnessesFormValidator = Yup.object().shape({
 export async function sendClaimsdataRequest() {
   // Create Post Request
   const postRequest: CreateClaimRequest = mapDTO();
+  sessionStorage.setItem('claimsdataRequest', JSON.stringify(postRequest));
   // API Object
   const api: ClaimsApi = new ClaimsApi();
 
   return api.createClaim(postRequest);
 }
 
-export async function sendClaimsdata() {
-  sendClaimsdataRequest()
-    .then((response: Claimsdata) => {
-      console.log('This is my Response: ' + JSON.stringify(response));
-      alert('Schaden wurde erfolgreich übertragen!');
-    })
-    .catch((error) => {
-      console.error('Fehler beim Übermitteln der Schadendaten', error);
-    });
-}
 
 export function WitnessesForm() {
   const navigate = useNavigate();
@@ -77,8 +67,22 @@ export function WitnessesForm() {
     witnesses: [],
   };
 
+
+  async function sendClaimsdata() {
+    sendClaimsdataRequest()
+      .then((response: Claimsdata) => {
+        console.log('This is my Response: ' + JSON.stringify(response));
+        sessionStorage.setItem('claimsdataResult', JSON.stringify(response));
+        handleForward();
+      })
+      .catch((error) => {
+        alert('Fehler beim Übermitteln der Schadendaten' + error);
+      });
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handlePrev = () => navigate('/driver-of-insurance-holder-b');
+  const handleForward = () => navigate('/results');
   return (
     <Formik
       initialValues={initialValues}

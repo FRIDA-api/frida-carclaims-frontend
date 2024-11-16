@@ -7,3 +7,4 @@ export * from './WitnessesForm';
 export * from './DriverOfInsuranceHolderForm';
 export * from './OtherInsuranceHolderForm';
 export * from './DriverOfOtherInsuranceHolderForm';
+export * from './ResultForm';
