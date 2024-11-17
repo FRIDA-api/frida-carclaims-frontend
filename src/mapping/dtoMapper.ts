@@ -32,7 +32,7 @@ import dayjs from 'dayjs';
 import { Buffer } from 'buffer';
 import { Console } from 'console';
 
-function createImageBlobs(
+function createImageBase64(
   imgsURL: string[],
   files: File &
     {
@@ -110,7 +110,7 @@ export function mapDTO(): CreateClaimRequest {
     } = driverHolderFileUploads;
 
     const driverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
-      createImageBlobs(imgsURL, files);
+      createImageBase64(imgsURL, files);
 
     vehicleDriver = {
       personalInformation: {
@@ -184,7 +184,7 @@ export function mapDTO(): CreateClaimRequest {
     } = otherDriverHolderFileUploads;
 
     const otherDriverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
-      createImageBlobs(imgsURL, files);
+      createImageBase64(imgsURL, files);
 
       console.log("Images Driver B: " + otherDriverholderImgs);
 
