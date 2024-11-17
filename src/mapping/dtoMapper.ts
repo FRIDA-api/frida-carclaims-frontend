@@ -32,12 +32,6 @@ import dayjs from 'dayjs';
 import { Buffer } from 'buffer';
 import { Console } from 'console';
 
-// Funktion zum Extrahieren des MIME-Typs aus der Bild-URL
-function extractMimeType(url: string): string {
-  const mimeTypeMatch = url.match(/data:(.*?);base64,/);
-  return mimeTypeMatch ? mimeTypeMatch[1] : 'application/octet-stream';
-}
-
 function createImageBlobs(
   imgsURL: string[],
   files: File &
@@ -46,7 +40,6 @@ function createImageBlobs(
     }[]
 ): { file: string; path: string }[] {
   return imgsURL.map((url: string, index: number) => {
-    const mimeType = extractMimeType(url);
     const base64Data = url.split(',')[1];
 
     return {
