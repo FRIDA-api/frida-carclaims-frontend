@@ -53,10 +53,10 @@ export function OtherInsuranceHolderForm() {
                   defaultValue=""
                 >
                   <MenuItem key="otherInsuranceHolder-none" value=""></MenuItem>
-                  <MenuItem key="otherInsuranceHolder-male" value="Male">
+                  <MenuItem key="otherInsuranceHolder-herr" value="Herr">
                     Herr
                   </MenuItem>
-                  <MenuItem key="otherInsuranceHolder-female" value="Female">
+                  <MenuItem key="otherInsuranceHolder-frau" value="Frau">
                     Frau
                   </MenuItem>
                 </Field>

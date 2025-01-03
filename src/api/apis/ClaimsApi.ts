@@ -25,7 +25,8 @@ import {
     ErrorListToJSON,
 } from '../models/index';
 
-export interface CreateClaimRequest {
+export interface CreateClaimByPIDRequest {
+    policyNumber: string;
     claimsdata?: Claimsdata;
 }
 
@@ -44,10 +45,17 @@ export interface UpdateClaimByPIDRequest {
 export class ClaimsApi extends runtime.BaseAPI {
 
     /**
-     * Create Claim
-     * Create Claim
+     * Create Claim by PID
+     * Create Claim by PID
      */
-    async createClaimRaw(requestParameters: CreateClaimRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Claimsdata>> {
+    async createClaimByPIDRaw(requestParameters: CreateClaimByPIDRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Claimsdata>> {
+        if (requestParameters['policyNumber'] == null) {
+            throw new runtime.RequiredError(
+                'policyNumber',
+                'Required parameter "policyNumber" was null or undefined when calling createClaimByPID().'
+            );
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -55,7 +63,7 @@ export class ClaimsApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/claimsdata`,
+            path: `/claimsdata/{policyNumber}`.replace(`{${"policyNumber"}}`, encodeURIComponent(String(requestParameters['policyNumber']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -66,39 +74,11 @@ export class ClaimsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create Claim
-     * Create Claim
+     * Create Claim by PID
+     * Create Claim by PID
      */
-    async createClaim(requestParameters: CreateClaimRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Claimsdata> {
-        const response = await this.createClaimRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Get Claim
-     * Get Claim
-     */
-    async getClaimRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Claimsdata>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/claimsdata`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ClaimsdataFromJSON(jsonValue));
-    }
-
-    /**
-     * Get Claim
-     * Get Claim
-     */
-    async getClaim(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Claimsdata> {
-        const response = await this.getClaimRaw(initOverrides);
+    async createClaimByPID(requestParameters: CreateClaimByPIDRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Claimsdata> {
+        const response = await this.createClaimByPIDRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

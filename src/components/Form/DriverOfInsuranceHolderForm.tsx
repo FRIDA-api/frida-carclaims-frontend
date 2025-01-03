@@ -282,7 +282,7 @@ export function DriverOfInsuranceHolderForm() {
                   <Stack direction="column" spacing={stackSpacing}>
                     <b>Anrede: </b>{' '}
                     <p>
-                      {values.driverSalutation === 'Male' ? 'Herr' : 'Frau'}{' '}
+                      {values.driverSalutation === 'Herr' ? 'Herr' : 'Frau'}{' '}
                     </p>
                     <b>Nach- und Vorname: </b>
                     <p>

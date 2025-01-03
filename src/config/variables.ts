@@ -1,5 +1,5 @@
 export const Languages = ['DE', 'EN', 'FR', 'ES', 'IT', 'NL', 'PL'];
-export const Salutations = ['', 'Male', 'Female'];
+export const Salutations = ['', 'Herr', 'Frau'];
 export const DamagedPlace = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 export const Decisions = ['Yes', 'No'];
 export const TypesOfDamage = [

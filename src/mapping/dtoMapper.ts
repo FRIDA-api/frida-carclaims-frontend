@@ -15,7 +15,6 @@ import {
   Witness,
   ClaimsdataHasVehicleDamageEnum,
   VehicleDriverDamagedCarImagesInner,
-  CreateClaimRequest,
 } from '../api';
 import {
   CarclaimsDetailsState,
@@ -27,10 +26,7 @@ import {
   OtherInsuranceHolderFormState,
   WitnessDetails,
 } from '../types';
-import { OtherInsuranceHolderForm } from '../components/Form';
 import dayjs from 'dayjs';
-import { Buffer } from 'buffer';
-import { Console } from 'console';
 
 function createImageBase64(
   imgsURL: string[],
@@ -49,7 +45,7 @@ function createImageBase64(
   });
 }
 
-export function mapDTO(): CreateClaimRequest {
+export function mapDTO(): Claimsdata {
   // Log Session Storage Objects
   // console.log('carclaimsDetails');
   // console.log(JSON.parse(sessionStorage.getItem('carclaimsDetails')!));
@@ -104,9 +100,9 @@ export function mapDTO(): CreateClaimRequest {
     }: {
       imgsURL: string[];
       files: File &
-        {
-          path?: string;
-        }[];
+      {
+        path?: string;
+      }[];
     } = driverHolderFileUploads;
 
     const driverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
@@ -178,20 +174,20 @@ export function mapDTO(): CreateClaimRequest {
     }: {
       imgsURL: string[];
       files: File &
-        {
-          path?: string;
-        }[];
+      {
+        path?: string;
+      }[];
     } = otherDriverHolderFileUploads;
 
     const otherDriverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
       createImageBase64(imgsURL, files);
 
-      console.log("Images Driver B: " + otherDriverholderImgs);
+    console.log("Images Driver B: " + otherDriverholderImgs);
 
     otherVehicleDriver = {
       personalInformation: {
         formOfAdress:
-          otherDriverSalutation === 'Male'
+          otherDriverSalutation === 'Herr'
             ? PersonFormOfAdressEnum.Herr
             : PersonFormOfAdressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?
         title: PersonTitleEnum.Dr, //Existiert nicht im Front End
@@ -231,6 +227,7 @@ export function mapDTO(): CreateClaimRequest {
       insuranceHolderString
     );
     const {
+      insuranceHolderSalutation,
       insuranceHolderSurName,
       insuranceHolderName,
       insuranceHolderPostalCode,
@@ -253,7 +250,9 @@ export function mapDTO(): CreateClaimRequest {
 
     policyholder = {
       personalInformation: {
-        formOfAdress: PersonFormOfAdressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?
+        formOfAdress: insuranceHolderSalutation === 'Herr'
+          ? PersonFormOfAdressEnum.Herr
+          : PersonFormOfAdressEnum.Frau,//Das Mapping der Enums muss angepasst werden not_specified ?
         title: PersonTitleEnum.Dr, //Existiert nicht im Front End
         lastName: insuranceHolderSurName,
         firstName: insuranceHolderName,
@@ -292,6 +291,7 @@ export function mapDTO(): CreateClaimRequest {
       otherInsuranceHolderString
     );
     const {
+      otherInsuranceHolderSalutation,
       otherInsuranceHolderSurName,
       otherInsuranceHolderName,
       otherInsuranceHolderPostalCode,
@@ -314,7 +314,9 @@ export function mapDTO(): CreateClaimRequest {
 
     otherPolicyholder = {
       personalInformation: {
-        formOfAdress: PersonFormOfAdressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?
+        formOfAdress: otherInsuranceHolderSalutation === "Herr"
+        ?  PersonFormOfAdressEnum.Herr
+        : PersonFormOfAdressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?
         title: PersonTitleEnum.Dr, //Existiert nicht im Front End
         lastName: otherInsuranceHolderSurName,
         firstName: otherInsuranceHolderName,
@@ -357,7 +359,7 @@ export function mapDTO(): CreateClaimRequest {
       return {
         personalInformation: {
           formOfAdress:
-            witnesses.salutation === 'Male'
+            witnesses.salutation === 'Herr'
               ? PersonFormOfAdressEnum.Herr
               : PersonFormOfAdressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?,
           title: PersonTitleEnum.Dr,
@@ -431,6 +433,7 @@ export function mapDTO(): CreateClaimRequest {
     miscellaneousDamagesDetails = JSON.parse(miscellaneousDamagesString);
   }
 
+  console.log("Language :" + language);
   //Body des API Requests
   const claimsdata: Claimsdata = {
     language:
@@ -477,5 +480,5 @@ export function mapDTO(): CreateClaimRequest {
     otherPolicyholder: otherPolicyholder,
   };
 
-  return {claimsdata} as CreateClaimRequest;
+  return claimsdata;
 }

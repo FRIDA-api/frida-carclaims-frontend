@@ -25,43 +25,6 @@ externalDocs:
   description: Hier folgt noch ein Verweis auf die externe Doku
   url: 'http://swagger.io'
 paths:
-  /claimsdata:
-    get:
-      operationId: getClaim
-      summary: Get Claim
-      description: Get Claim
-      tags:
-        - Claims
-      responses:
-        '201':
-          description: Claim Data
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Claimsdata'
-    post:
-      operationId: createClaim
-      summary: Create Claim
-      description: Create Claim
-      tags:
-        - Claims
-      requestBody:
-        $ref: '#/components/requestBodies/Claimdata'
-      responses:
-        '201':
-          $ref: '#/components/responses/Claimdata'
-        '403':
-          description: Authorization error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorList'
-        '500':
-          description: Generic Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorList'
   '/claimsdata/{policyNumber}':
     parameters:
       - $ref: '#/components/parameters/policyNumber'
@@ -94,10 +57,36 @@ paths:
         '200':
           description: Fetched a Claim-Data-Set by PolicyNumber
           $ref: '#/components/responses/Claimdata'
+    post:
+      operationId: createClaimByPID
+      summary: Create Claim by PID
+      description: Create Claim by PID
+      tags:
+        - Claims
+      parameters:
+        - $ref: '#/components/parameters/policyNumber'
+      requestBody:
+        $ref: '#/components/requestBodies/Claimdata'
+      responses:
+        '201':
+          $ref: '#/components/responses/Claimdata'
+        '403':
+          description: Authorization error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+        '500':
+          description: Generic Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
 components:
   schemas:
     Claimsdata:
       description: Holds all information required for submitting a `Comprehensive Claim` to the insurance company.
+      type: object
       properties:
         language:
           type: string
@@ -196,9 +185,10 @@ components:
         - hasVehicleDamage
         - injuredPerson
         - witnessExists
-      type: object
+      additionalProperties: false
     Person:
       description: 'Holds all information of a Person who could either be a `Witness`, or a part of a `Policyholder` or `Vehicle Driver`.'
+      type: object
       properties:
         formOfAdress:
           type: string
@@ -246,9 +236,10 @@ components:
           type: string
           description: E-Mail Adresse
           example: example@gmail.com
-      type: object
+      additionalProperties: false
     Policyholder:
       description: Holds all information of a `Policyholder`.
+      type: object
       properties:
         personalInformation:
           $ref: '#/components/schemas/Person'
@@ -301,7 +292,7 @@ components:
             - not_specified
             - 'false'
             - 'true'
-      type: object
+      additionalProperties: false
     Witness:
       description: Holds all information of a `Witness`.
       properties:
@@ -309,6 +300,7 @@ components:
           $ref: '#/components/schemas/Person'
     VehicleDriver:
       description: Holds all information of a `Vehicle Driver`.
+      type: object
       properties:
         personalInformation:
           $ref: '#/components/schemas/Person'
@@ -330,9 +322,11 @@ components:
                 type: string
                 format: byte
                 description: Bild vom Schaden || native FileAPI des Clients (Dunkelverarbeitung)
+                example: iVBORw0KGgoAAAANSUhEUgAAAAUA
               path:
                 type: string
                 description: Pfad zum Bild
+            additionalProperties: false
         damagedWindowImages:
           maxItems: 8
           type: array
@@ -344,9 +338,11 @@ components:
                 type: string
                 format: byte
                 description: Bild vom Glasschaden || native FileAPI des Clients (Dunkelverarbeitung)
+                example: iVBORw0KGgoAAAANSUhEUgAAAAUA
               path:
                 type: string
                 description: Pfad zum Bild
+            additionalProperties: false
         driverDamagedpartsGraphic:
           type: array
           description: Auswahl der beschädigten Stellen
@@ -408,9 +404,10 @@ components:
           type: string
           description: Werkstatt Standort
           example: 50°56’28.8″N 6°57’30.0
-      type: object
+      additionalProperties: false
     ErrorList:
       description: Error object
+      type: object
       properties:
         errors:
           type: array
@@ -433,9 +430,10 @@ components:
               meta:
                 type: object
                 description: Optional additional data for specific error types
+            additionalProperties: false
       required:
         - errors
-      type: object
+      additionalProperties: false
   requestBodies:
     Claimdata:
       content:

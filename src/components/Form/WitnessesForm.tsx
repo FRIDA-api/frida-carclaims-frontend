@@ -17,7 +17,7 @@ import * as Yup from 'yup';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useNavigate } from 'react-router';
 import { mapDTO } from '../../mapping/dtoMapper';
-import { ClaimsApi, Claimsdata, CreateClaimRequest } from '../../api';
+import { ClaimsApi, Claimsdata, CreateClaimByPIDRequest } from '../../api';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const witnessesFormValidator = Yup.object().shape({
@@ -51,14 +51,19 @@ const witnessesFormValidator = Yup.object().shape({
 
 export async function sendClaimsdataRequest() {
   // Create Post Request
-  const postRequest: CreateClaimRequest = mapDTO();
+  const claimsdata: Claimsdata = mapDTO();
+  const { policyNumber } = claimsdata.policyholder;
+
+  const postRequest: CreateClaimByPIDRequest = {
+    policyNumber: policyNumber!,
+    claimsdata,
+  };
   sessionStorage.setItem('claimsdataRequest', JSON.stringify(postRequest));
   // API Object
   const api: ClaimsApi = new ClaimsApi();
 
-  return api.createClaim(postRequest);
+  return api.createClaimByPID(postRequest);
 }
-
 
 export function WitnessesForm() {
   const navigate = useNavigate();
@@ -66,7 +71,6 @@ export function WitnessesForm() {
     existingWitness: '',
     witnesses: [],
   };
-
 
   async function sendClaimsdata() {
     sendClaimsdataRequest()
@@ -197,16 +201,13 @@ export function WitnessesForm() {
                                         key={'witness-s-none'}
                                       ></MenuItem>
                                       <MenuItem
-                                        value={'Male'}
+                                        value={'Herr'}
                                         key={'witness-m'}
                                       >
-                                        Männlich
+                                        Herr
                                       </MenuItem>
-                                      <MenuItem
-                                        value="Female"
-                                        key={'witness-f'}
-                                      >
-                                        Weiblich
+                                      <MenuItem value="Frau" key={'witness-f'}>
+                                        Frau
                                       </MenuItem>
                                     </Field>
                                   </FormControl>

@@ -73,10 +73,10 @@ export function InsuranceHolderForm() {
                     defaultValue=""
                   >
                     <MenuItem key="insuranceHolder-none" value=""></MenuItem>
-                    <MenuItem key="insuranceHolder-male" value="Male">
+                    <MenuItem key="insuranceHolder-herr" value="Herr">
                       Herr
                     </MenuItem>
-                    <MenuItem key="insuranceHolder-female" value="Female">
+                    <MenuItem key="insuranceHolder-frau" value="Frau">
                       Frau
                     </MenuItem>
                   </Field>

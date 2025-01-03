@@ -1,5 +1,4 @@
 import { Dayjs } from 'dayjs';
-import { EnumDeclaration } from 'typescript';
 
 export interface FormState {
   language: string;
@@ -19,7 +18,7 @@ export interface FormState {
   injuredPlace?: string;
   otherDamages?: boolean | string | null;
   existingWitness?: boolean | string | null;
-  witnessSalutation?: '' | 'Male' | 'Female' | null;
+  witnessSalutation?: '' | 'Herr' | 'Frau' | null;
   witnessLastName?: string;
   witnessSurName?: string;
   witnessStreet?: string;
@@ -28,7 +27,7 @@ export interface FormState {
   witnessPlace?: string;
   witnessEmail?: string;
   witnessTelephone?: string;
-  insuranceHolderSalutation?: '' | 'Male' | 'Female' | null;
+  insuranceHolderSalutation?: '' | 'Herr' | 'Frau' | null;
   insuranceHolderName?: string;
   insuranceHolderSurName?: string;
   insuranceHolderStreet?: string;
@@ -37,7 +36,7 @@ export interface FormState {
   insuranceHolderPlace?: string;
   insuranceHolderTelephone?: string;
   insuranceHolderEmail?: string;
-  otherInsuranceHolderSalutation?: '' | 'Male' | 'Female' | null;
+  otherInsuranceHolderSalutation?: '' | 'Herr' | 'Frau' | null;
   otherInsuranceHolderName?: string;
   otherInsuranceHolderSurName?: string;
   otherInsuranceHolderStreet?: string;
@@ -68,7 +67,7 @@ export interface FormState {
   currentKM?: string;
   greenCardNr?: string;
   validDateGreenCard?: Dayjs | null;
-  driverSalutation?: string | 'Male' | 'Female' | '';
+  driverSalutation?: string | 'Herr' | 'Frau' | '';
   driverHolderName?: string;
   driverHolderSurName?: string;
   driverHolderStreet?: string;
@@ -84,7 +83,7 @@ export interface FormState {
   driverHolderNotes?: string;
   victimReadyToDrive?: 'Yes' | 'No';
   whichDamageToVictim?: number;
-  otherDriverSalutation?: string | 'Male' | 'Female' | '';
+  otherDriverSalutation?: string | 'Herr' | 'Frau' | '';
   otherDriverHolderName?: string;
   otherDriverHolderSurName?: string;
   otherDriverHolderStreet?: string;
@@ -125,7 +124,7 @@ export interface MiscellaneousDamagesFormState {
 }
 
 export interface InsuranceHolderFormState {
-  insuranceHolderSalutation?: '' | 'Male' | 'Female' | null;
+  insuranceHolderSalutation?: '' | 'Herr' | 'Frau' | null;
   insuranceHolderName?: string;
   insuranceHolderSurName?: string;
   insuranceHolderStreet?: string;
@@ -148,7 +147,7 @@ export interface InsuranceHolderFormState {
 }
 
 export interface OtherInsuranceHolderFormState {
-  otherInsuranceHolderSalutation?: '' | 'Male' | 'Female' | null;
+  otherInsuranceHolderSalutation?: '' | 'Herr' | 'Frau' | null;
   otherInsuranceHolderName?: string;
   otherInsuranceHolderSurName?: string;
   otherInsuranceHolderStreet?: string;
@@ -172,7 +171,7 @@ export interface OtherInsuranceHolderFormState {
 }
 
 export interface DriverOfInsuranceHolderFormState {
-  driverSalutation?: string | 'Male' | 'Female' | '';
+  driverSalutation?: string | 'Herr' | 'Frau' | '';
   driverHolderName?: string;
   driverHolderSurName?: string;
   driverHolderStreet?: string;
@@ -191,7 +190,7 @@ export interface DriverOfInsuranceHolderFormState {
 }
 
 export interface DriverOfOtherInsuranceHolderFormState {
-  otherDriverSalutation?: 'Male' | 'Female' | '';
+  otherDriverSalutation?: 'Herr' | 'Frau' | '';
   otherDriverHolderName?: string;
   otherDriverHolderSurName?: string;
   otherDriverHolderStreet?: string;
