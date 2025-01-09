@@ -1,7 +1,7 @@
 import {
   VehicleDriver,
   Policyholder,
-  PersonFormOfAdressEnum,
+  PersonFormOfAddressEnum,
   PersonTitleEnum,
   VehicleDriverDriverDamagedpartsGraphicEnum,
   VehicleDriverVehicleDrivingAbilityEnum,
@@ -110,10 +110,10 @@ export function mapDTO(): Claimsdata {
 
     vehicleDriver = {
       personalInformation: {
-        formOfAdress:
+        formOfAddress:
           driverSalutation === 'Herr'
-            ? PersonFormOfAdressEnum.Herr
-            : PersonFormOfAdressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?
+            ? PersonFormOfAddressEnum.Herr
+            : PersonFormOfAddressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?
         title: PersonTitleEnum.Dr, //Existiert nicht im Front End
         lastName: driverHolderSurName,
         firstName: driverHolderName,
@@ -186,10 +186,10 @@ export function mapDTO(): Claimsdata {
 
     otherVehicleDriver = {
       personalInformation: {
-        formOfAdress:
+        formOfAddress:
           otherDriverSalutation === 'Herr'
-            ? PersonFormOfAdressEnum.Herr
-            : PersonFormOfAdressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?
+            ? PersonFormOfAddressEnum.Herr
+            : PersonFormOfAddressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?
         title: PersonTitleEnum.Dr, //Existiert nicht im Front End
         lastName: otherDriverHolderSurName,
         firstName: otherDriverHolderName,
@@ -250,9 +250,9 @@ export function mapDTO(): Claimsdata {
 
     policyholder = {
       personalInformation: {
-        formOfAdress: insuranceHolderSalutation === 'Herr'
-          ? PersonFormOfAdressEnum.Herr
-          : PersonFormOfAdressEnum.Frau,//Das Mapping der Enums muss angepasst werden not_specified ?
+        formOfAddress: insuranceHolderSalutation === 'Herr'
+          ? PersonFormOfAddressEnum.Herr
+          : PersonFormOfAddressEnum.Frau,//Das Mapping der Enums muss angepasst werden not_specified ?
         title: PersonTitleEnum.Dr, //Existiert nicht im Front End
         lastName: insuranceHolderSurName,
         firstName: insuranceHolderName,
@@ -314,9 +314,9 @@ export function mapDTO(): Claimsdata {
 
     otherPolicyholder = {
       personalInformation: {
-        formOfAdress: otherInsuranceHolderSalutation === "Herr"
-        ?  PersonFormOfAdressEnum.Herr
-        : PersonFormOfAdressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?
+        formOfAddress: otherInsuranceHolderSalutation === "Herr"
+        ?  PersonFormOfAddressEnum.Herr
+        : PersonFormOfAddressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?
         title: PersonTitleEnum.Dr, //Existiert nicht im Front End
         lastName: otherInsuranceHolderSurName,
         firstName: otherInsuranceHolderName,
@@ -358,10 +358,10 @@ export function mapDTO(): Claimsdata {
     witness = witnesses.map((witnesses) => {
       return {
         personalInformation: {
-          formOfAdress:
+          formOfAddress:
             witnesses.salutation === 'Herr'
-              ? PersonFormOfAdressEnum.Herr
-              : PersonFormOfAdressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?,
+              ? PersonFormOfAddressEnum.Herr
+              : PersonFormOfAddressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?,
           title: PersonTitleEnum.Dr,
           lastName: witnesses.surName,
           firstName: witnesses.lastName,
@@ -389,6 +389,12 @@ export function mapDTO(): Claimsdata {
     processingNr: '',
   };
 
+  const carclaimsDetailsString = sessionStorage.getItem('carclaimsDetails');
+  if (carclaimsDetailsString) {
+    carclaimsDetails = JSON.parse(carclaimsDetailsString);
+
+  }
+
   const {
     language,
     accidentDate,
@@ -401,13 +407,7 @@ export function mapDTO(): Claimsdata {
     processingNr,
   } = carclaimsDetails;
 
-  const carclaimsDetailsString = sessionStorage.getItem('carclaimsDetails');
-  if (carclaimsDetailsString) {
-    carclaimsDetails = JSON.parse(carclaimsDetailsString);
-  }
-  const carclaimsDetails2: CarclaimsDetailsState = JSON.parse(
-    carclaimsDetailsString?.toString()!
-  );
+  console.log('CarclaimsDetails: ' + language);
 
   // InjuredDetailsString
   let injuredDetails: InjuredPeopleFormState = {
@@ -433,11 +433,28 @@ export function mapDTO(): Claimsdata {
     miscellaneousDamagesDetails = JSON.parse(miscellaneousDamagesString);
   }
 
-  console.log("Language :" + language);
   //Body des API Requests
   const claimsdata: Claimsdata = {
-    language:
-      language === 'DE' ? ClaimsdataLanguageEnum.De : ClaimsdataLanguageEnum.En, //Das Mapping der Enums muss angepasst werden not_specified ?
+    language: (() => {
+      switch (language) {
+        case 'DE':
+          return ClaimsdataLanguageEnum.De;
+        case 'EN':
+          return ClaimsdataLanguageEnum.En;
+        case 'FR':
+          return ClaimsdataLanguageEnum.Fr;
+        case 'ES':
+          return ClaimsdataLanguageEnum.Es;
+        case 'IT':
+          return ClaimsdataLanguageEnum.It;
+        case 'NL':
+          return ClaimsdataLanguageEnum.Nl;
+        case 'PL':
+          return ClaimsdataLanguageEnum.Pl;
+        default:
+          return ClaimsdataLanguageEnum.De; // Default to German if not specified
+      }
+    })(),
     accidentDate: accidentDate
       ? dayjs.isDayjs(accidentDate)
         ? accidentDate.toDate()

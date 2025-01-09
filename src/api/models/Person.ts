@@ -24,7 +24,7 @@ export interface Person {
      * @type {string}
      * @memberof Person
      */
-    formOfAdress?: PersonFormOfAdressEnum;
+    formOfAddress?: PersonFormOfAddressEnum;
     /**
      * Titel
      * @type {string}
@@ -85,12 +85,12 @@ export interface Person {
 /**
  * @export
  */
-export const PersonFormOfAdressEnum = {
-    NoAdress: 'no_adress',
+export const PersonFormOfAddressEnum = {
+    NoAddress: 'no_address',
     Herr: 'Herr',
     Frau: 'Frau'
 } as const;
-export type PersonFormOfAdressEnum = typeof PersonFormOfAdressEnum[keyof typeof PersonFormOfAdressEnum];
+export type PersonFormOfAddressEnum = typeof PersonFormOfAddressEnum[keyof typeof PersonFormOfAddressEnum];
 
 /**
  * @export
@@ -120,7 +120,7 @@ export function PersonFromJSONTyped(json: any, ignoreDiscriminator: boolean): Pe
     }
     return {
         
-        'formOfAdress': json['formOfAdress'] == null ? undefined : json['formOfAdress'],
+        'formOfAddress': json['formOfAddress'] == null ? undefined : json['formOfAddress'],
         'title': json['title'] == null ? undefined : json['title'],
         'lastName': json['lastName'] == null ? undefined : json['lastName'],
         'firstName': json['firstName'] == null ? undefined : json['firstName'],
@@ -139,7 +139,7 @@ export function PersonToJSON(value?: Person | null): any {
     }
     return {
         
-        'formOfAdress': value['formOfAdress'],
+        'formOfAddress': value['formOfAddress'],
         'title': value['title'],
         'lastName': value['lastName'],
         'firstName': value['firstName'],
