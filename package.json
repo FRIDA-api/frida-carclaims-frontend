@@ -40,6 +40,8 @@
     "build-api-stoplight": "openapi-generator-cli generate -g typescript-fetch -o ./src/api -i https://stoplight.io/api/v1/projects/claimstobe/claims-data-schema/nodes/Claimsdata.yaml?fromExportButton=true&snapshotType=http_service&deref=optimizedBundle ",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploygh": "gh-pages -d build",
     "deploy": "yarn build:prod & yarn serve",
     "build:prod": "NODE_ENV=production react-scripts build",
     "serve": "serve -l 3090 build"
