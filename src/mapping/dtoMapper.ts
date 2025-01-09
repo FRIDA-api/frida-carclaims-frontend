@@ -182,8 +182,6 @@ export function mapDTO(): Claimsdata {
     const otherDriverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
       createImageBase64(imgsURL, files);
 
-    console.log("Images Driver B: " + otherDriverholderImgs);
-
     otherVehicleDriver = {
       personalInformation: {
         formOfAddress:
