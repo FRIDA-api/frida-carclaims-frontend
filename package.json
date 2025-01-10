@@ -1,7 +1,8 @@
 {
   "name": "carclaims-frontend",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://frida-api.github.io/frida-carclaims-frontend",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
