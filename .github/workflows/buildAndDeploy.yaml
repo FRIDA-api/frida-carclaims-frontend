@@ -31,7 +31,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: 'https://frida-api.github.io/frida-carclaims-frontend","homepage": "https://frida-api.github.io/frida-carclaims-frontend'
+      url: 'https://frida-api.github.io/frida-carclaims-frontend'
     steps:
       - name: Setup Pages
         uses: actions/configure-pages@v5
