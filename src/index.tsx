@@ -18,6 +18,8 @@ import WitnessesPage from './routes/witnesses';
 import DisclaimerPage from './routes/disclaimer';
 import ResultPage from './routes/request-result';
 
+const basename = '/frida-carclaims-frontend';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -59,7 +61,9 @@ const router = createBrowserRouter([
     path: '/results',
     element: <ResultPage />,
   },
-]);
+], {
+  basename: basename,
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
