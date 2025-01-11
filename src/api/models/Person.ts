@@ -86,7 +86,7 @@ export interface Person {
  * @export
  */
 export const PersonFormOfAddressEnum = {
-    NoAddress: 'no_address',
+    NotSpecified: 'not_specified',
     Herr: 'Herr',
     Frau: 'Frau'
 } as const;

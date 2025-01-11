@@ -194,7 +194,7 @@ components:
           type: string
           description: Anrede
           enum:
-            - no_address
+            - not_specified
             - Herr
             - Frau
         title:
