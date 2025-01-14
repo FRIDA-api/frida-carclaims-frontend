@@ -40,7 +40,7 @@ function createImageBase64(
 
     return {
       file: base64Data,
-      path: files[index]?.path || 'Hello', // Verwende den Pfad aus files oder 'Hello' als Fallback
+      path: files[index]?.path || 'Hello',
     };
   });
 }
@@ -100,9 +100,9 @@ export function mapDTO(): Claimsdata {
     }: {
       imgsURL: string[];
       files: File &
-      {
-        path?: string;
-      }[];
+        {
+          path?: string;
+        }[];
     } = driverHolderFileUploads;
 
     const driverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
@@ -110,10 +110,16 @@ export function mapDTO(): Claimsdata {
 
     vehicleDriver = {
       personalInformation: {
-        formOfAddress:
-          driverSalutation === 'Herr'
-            ? PersonFormOfAddressEnum.Herr
-            : PersonFormOfAddressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?
+        formOfAddress: (() => {
+          switch (driverSalutation) {
+            case 'Herr':
+              return PersonFormOfAddressEnum.Herr;
+            case 'Frau':
+              return PersonFormOfAddressEnum.Frau;
+            default:
+              return PersonFormOfAddressEnum.NotSpecified;
+          }
+        })(),
         title: PersonTitleEnum.Dr, //Existiert nicht im Front End
         lastName: driverHolderSurName,
         firstName: driverHolderName,
@@ -174,9 +180,9 @@ export function mapDTO(): Claimsdata {
     }: {
       imgsURL: string[];
       files: File &
-      {
-        path?: string;
-      }[];
+        {
+          path?: string;
+        }[];
     } = otherDriverHolderFileUploads;
 
     const otherDriverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
@@ -184,11 +190,16 @@ export function mapDTO(): Claimsdata {
 
     otherVehicleDriver = {
       personalInformation: {
-        formOfAddress:
-          otherDriverSalutation === 'Herr'
-            ? PersonFormOfAddressEnum.Herr
-            : PersonFormOfAddressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?
-        title: PersonTitleEnum.Dr, //Existiert nicht im Front End
+        formOfAddress: (() => {
+          switch (otherDriverSalutation) {
+            case 'Herr':
+              return PersonFormOfAddressEnum.Herr;
+            case 'Frau':
+              return PersonFormOfAddressEnum.Frau;
+            default:
+              return PersonFormOfAddressEnum.NotSpecified;
+          }
+        })(),
         lastName: otherDriverHolderSurName,
         firstName: otherDriverHolderName,
         postalCode: otherDriverHolderPostalCode,
@@ -248,9 +259,16 @@ export function mapDTO(): Claimsdata {
 
     policyholder = {
       personalInformation: {
-        formOfAddress: insuranceHolderSalutation === 'Herr'
-          ? PersonFormOfAddressEnum.Herr
-          : PersonFormOfAddressEnum.Frau,//Das Mapping der Enums muss angepasst werden not_specified ?
+        formOfAddress: (() => {
+          switch (insuranceHolderSalutation) {
+            case 'Herr':
+              return PersonFormOfAddressEnum.Herr;
+            case 'Frau':
+              return PersonFormOfAddressEnum.Frau;
+            default:
+              return PersonFormOfAddressEnum.NotSpecified;
+          }
+        })(),
         title: PersonTitleEnum.Dr, //Existiert nicht im Front End
         lastName: insuranceHolderSurName,
         firstName: insuranceHolderName,
@@ -312,9 +330,16 @@ export function mapDTO(): Claimsdata {
 
     otherPolicyholder = {
       personalInformation: {
-        formOfAddress: otherInsuranceHolderSalutation === "Herr"
-        ?  PersonFormOfAddressEnum.Herr
-        : PersonFormOfAddressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?
+        formOfAddress: (() => {
+          switch (otherInsuranceHolderSalutation) {
+            case 'Herr':
+              return PersonFormOfAddressEnum.Herr;
+            case 'Frau':
+              return PersonFormOfAddressEnum.Frau;
+            default:
+              return PersonFormOfAddressEnum.NotSpecified;
+          }
+        })(),
         title: PersonTitleEnum.Dr, //Existiert nicht im Front End
         lastName: otherInsuranceHolderSurName,
         firstName: otherInsuranceHolderName,
@@ -356,10 +381,16 @@ export function mapDTO(): Claimsdata {
     witness = witnesses.map((witnesses) => {
       return {
         personalInformation: {
-          formOfAddress:
-            witnesses.salutation === 'Herr'
-              ? PersonFormOfAddressEnum.Herr
-              : PersonFormOfAddressEnum.Frau, //Das Mapping der Enums muss angepasst werden not_specified ?,
+          formOfAddress: (() => {
+            switch (witnesses.salutation) {
+              case 'Herr':
+                return PersonFormOfAddressEnum.Herr;
+              case 'Frau':
+                return PersonFormOfAddressEnum.Frau;
+              default:
+                return PersonFormOfAddressEnum.NotSpecified;
+            }
+          })(),
           title: PersonTitleEnum.Dr,
           lastName: witnesses.surName,
           firstName: witnesses.lastName,
@@ -390,7 +421,6 @@ export function mapDTO(): Claimsdata {
   const carclaimsDetailsString = sessionStorage.getItem('carclaimsDetails');
   if (carclaimsDetailsString) {
     carclaimsDetails = JSON.parse(carclaimsDetailsString);
-
   }
 
   const {
