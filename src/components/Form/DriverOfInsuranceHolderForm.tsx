@@ -309,21 +309,21 @@ export function DriverOfInsuranceHolderForm() {
                   </Typography>
                 </Grid>
                 <Grid item md={4} xs={12}>
-                  <Field
-                    name="driverHolderDamagePlace"
-                    value={values.driverHolderDamagePlace}
-                    onChange={handleChange}
-                    component={RadioGroup}
-                  >
-                    {DamagedPlace.map((dmg, i) => (
-                      <FormControlLabel
-                        value={dmg}
-                        key={`driverHolderDamagePlace-${i}`}
-                        control={<Radio />}
-                        label={dmg}
-                      />
-                    ))}
-                  </Field>
+                  <FormControl>
+                    <RadioGroup
+                      name="driverHolderDamagePlace"
+                      onChange={handleChange}
+                    >
+                      {DamagedPlace.map((dmg, i) => (
+                        <FormControlLabel
+                          value={dmg}
+                          key={`driverHolderDamagePlace-${i}`}
+                          control={<Radio />}
+                          label={dmg}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
                 </Grid>
               </Stack>
             </Grid>
@@ -406,40 +406,35 @@ export function DriverOfInsuranceHolderForm() {
               <Typography variant="body2">
                 * Ist das Fahrzeug vom Beschädigten fahrbereit?
               </Typography>
-              <Field
-                name="victimReadyToDrive"
-                value={values.victimReadyToDrive}
-                onChange={handleChange}
-                component={RadioGroup}
-              >
-                {Decisions.map((dec, i) => (
-                  <FormControlLabel
-                    label={dec === 'Yes' ? 'Ja' : 'Nein'}
-                    key={`victimReadyToDrive-${i}`}
-                    value={dec}
-                    control={<Radio />}
-                  />
-                ))}
-              </Field>
+              <FormControl>
+                <RadioGroup name="victimReadyToDrive" onChange={handleChange}>
+                  {Decisions.map((dec, i) => (
+                    <FormControlLabel
+                      label={dec === 'Yes' ? 'Ja' : 'Nein'}
+                      key={`victimReadyToDrive-${i}`}
+                      value={dec}
+                      control={<Radio />}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body2">
                 Wie kam es zu dem Schaden am Fahrzeug der beschädigten Person?
               </Typography>
-              <Field
-                name="whichDamageToVictim"
-                value={values.whichDamageToVictim}
-                component={RadioGroup}
-              >
-                {TypesOfDamage.map((dmg, i) => (
-                  <FormControlLabel
-                    label={dmg.label}
-                    value={dmg.key}
-                    key={`whichDamageToVictim-${i}`}
-                    control={<Radio />}
-                  />
-                ))}
-              </Field>
+              <FormControl>
+                <RadioGroup name="whichDamageToVictim" onChange={handleChange}>
+                  {TypesOfDamage.map((dmg, i) => (
+                    <FormControlLabel
+                      label={dmg.label}
+                      value={dmg.key}
+                      key={`whichDamageToVictim-${i}`}
+                      control={<Radio />}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <ButtonGroup>
