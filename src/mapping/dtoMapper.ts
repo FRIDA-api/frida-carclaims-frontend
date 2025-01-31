@@ -483,15 +483,9 @@ export function mapDTO(): Claimsdata {
           return ClaimsdataLanguageEnum.De; // Default to German if not specified
       }
     })(),
-    accidentDate: accidentDate
-      ? dayjs.isDayjs(accidentDate)
-        ? accidentDate.toDate()
-        : undefined
-      : undefined,
+    accidentDate: dayjs(accidentDate).toDate(),
     accidentTime: accidentTime
-      ? dayjs.isDayjs(accidentTime)
-        ? accidentTime.format()
-        : undefined
+      ? dayjs(accidentTime).format('HH:mm:ss')
       : undefined,
     accidentPostalCode: postalCode,
     accidentCity: place,
