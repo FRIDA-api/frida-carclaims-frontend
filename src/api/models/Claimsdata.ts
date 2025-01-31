@@ -127,7 +127,7 @@ export interface Claimsdata {
      * @type {string}
      * @memberof Claimsdata
      */
-    witnessNumber?: string;
+    witnessCount?: string;
     /**
      * 
      * @type {Array<Witness>}
@@ -242,7 +242,7 @@ export function ClaimsdataFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'injuredPerson': json['injuredPerson'],
         'injuredPersonNumber': json['injuredPersonNumber'] == null ? undefined : json['injuredPersonNumber'],
         'witnessExists': json['witnessExists'],
-        'witnessNumber': json['witnessNumber'] == null ? undefined : json['witnessNumber'],
+        'witnessCount': json['witnessCount'] == null ? undefined : json['witnessCount'],
         'witness': json['witness'] == null ? undefined : ((json['witness'] as Array<any>).map(WitnessFromJSON)),
         'vehicleDriver': json['vehicleDriver'] == null ? undefined : VehicleDriverFromJSON(json['vehicleDriver']),
         'otherVehicleDriver': json['otherVehicleDriver'] == null ? undefined : VehicleDriverFromJSON(json['otherVehicleDriver']),
@@ -271,7 +271,7 @@ export function ClaimsdataToJSON(value?: Claimsdata | null): any {
         'injuredPerson': value['injuredPerson'],
         'injuredPersonNumber': value['injuredPersonNumber'],
         'witnessExists': value['witnessExists'],
-        'witnessNumber': value['witnessNumber'],
+        'witnessCount': value['witnessCount'],
         'witness': value['witness'] == null ? undefined : ((value['witness'] as Array<any>).map(WitnessToJSON)),
         'vehicleDriver': VehicleDriverToJSON(value['vehicleDriver']),
         'otherVehicleDriver': VehicleDriverToJSON(value['otherVehicleDriver']),

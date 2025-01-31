@@ -94,10 +94,10 @@ export interface VehicleDriver {
     vehicleDrivingAbility?: VehicleDriverVehicleDrivingAbilityEnum;
     /**
      * Auswahl der Schadenursache
-     * @type {Array<string>}
+     * @type {string}
      * @memberof VehicleDriver
      */
-    damageCausedBy?: Array<VehicleDriverDamageCausedByEnum>;
+    damageCausedBy?: VehicleDriverDamageCausedByEnum;
     /**
      * Tierart
      * @type {string}

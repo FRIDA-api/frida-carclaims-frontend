@@ -91,6 +91,7 @@ export function mapDTO(): Claimsdata {
       driverHolderVisibleDamage,
       driverHolderNotes,
       victimReadyToDrive,
+      whichDamageToVictim,
     }: DriverOfInsuranceHolderFormState = JSON.parse(driverHolderString);
 
     const driverHolderFileUploads = JSON.parse(driverHolderString);
@@ -145,7 +146,28 @@ export function mapDTO(): Claimsdata {
         victimReadyToDrive === 'Yes'
           ? VehicleDriverVehicleDrivingAbilityEnum.True
           : VehicleDriverVehicleDrivingAbilityEnum.False, //Das Mapping der Enums muss angepasst werden not_specified ?
-      damageCausedBy: [VehicleDriverDamageCausedByEnum.Abbiegen], //whichDamageToVictim //Das Mapping der Enums muss angepasst werden not_specified ?
+      damageCausedBy: (() => {
+        switch (whichDamageToVictim) {
+          case 1:
+            return VehicleDriverDamageCausedByEnum.Auffahren;
+          case 2:
+            return VehicleDriverDamageCausedByEnum.RangierenParken;
+          case 3:
+            return VehicleDriverDamageCausedByEnum.MissachtungDerVorfahrt;
+          case 4:
+            return VehicleDriverDamageCausedByEnum.Abbiegen;
+          case 5:
+            return VehicleDriverDamageCausedByEnum.AbkommenVonDerFahrbahn;
+          case 6:
+            return VehicleDriverDamageCausedByEnum.Berholvorgang;
+          case 7:
+            return VehicleDriverDamageCausedByEnum.Spurwechsel;
+          case 8:
+            return VehicleDriverDamageCausedByEnum.Sonstiges;
+          default:
+            return VehicleDriverDamageCausedByEnum.Abbiegen;
+        }
+      })(),
       typeOfWildlife: 'Deer', //Existiert nicht im Front End
       certificateForWildlife: 'wildlife_certificate.pdf', //Existiert nicht im Front End
       garageLocation: 'Garage 1', //Existiert nicht im Front End
@@ -171,6 +193,7 @@ export function mapDTO(): Claimsdata {
       otherDriverHolderVisibleDamage,
       otherDriverHolderNotes,
       otherVictimReadyToDrive,
+      otherWhichDamageToVictim,
     } = driverHolderOther;
 
     const otherDriverHolderFileUploads = JSON.parse(driverHolderOtherString);
@@ -187,6 +210,8 @@ export function mapDTO(): Claimsdata {
 
     const otherDriverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
       createImageBase64(imgsURL, files);
+
+      console.log("Test " + otherWhichDamageToVictim);
 
     otherVehicleDriver = {
       personalInformation: {
@@ -222,7 +247,28 @@ export function mapDTO(): Claimsdata {
         otherVictimReadyToDrive === 'Yes'
           ? VehicleDriverVehicleDrivingAbilityEnum.True
           : VehicleDriverVehicleDrivingAbilityEnum.False, //Das Mapping der Enums muss angepasst werden not_specified ?
-      damageCausedBy: [VehicleDriverDamageCausedByEnum.Abbiegen], //driverHolderOther.otherWhichDamageToVictim //Das Mapping der Enums muss angepasst werden not_specified ?
+      damageCausedBy: (() => {
+        switch (otherWhichDamageToVictim) {
+          case 1:
+            return VehicleDriverDamageCausedByEnum.Auffahren;
+          case 2:
+            return VehicleDriverDamageCausedByEnum.RangierenParken;
+          case 3:
+            return VehicleDriverDamageCausedByEnum.MissachtungDerVorfahrt;
+          case 4:
+            return VehicleDriverDamageCausedByEnum.Abbiegen;
+          case 5:
+            return VehicleDriverDamageCausedByEnum.AbkommenVonDerFahrbahn;
+          case 6:
+            return VehicleDriverDamageCausedByEnum.Berholvorgang;
+          case 7:
+            return VehicleDriverDamageCausedByEnum.Spurwechsel;
+          case 8:
+            return VehicleDriverDamageCausedByEnum.Sonstiges;
+          default:
+            return VehicleDriverDamageCausedByEnum.Abbiegen;
+        }
+      })(),
       typeOfWildlife: 'Deer', //Existiert nicht im Front End
       certificateForWildlife: 'wildlife_certificate.pdf', //Existiert nicht im Front End
       garageLocation: 'Garage 1', //Existiert nicht im Front End
@@ -480,7 +526,7 @@ export function mapDTO(): Claimsdata {
         case 'PL':
           return ClaimsdataLanguageEnum.Pl;
         default:
-          return ClaimsdataLanguageEnum.De; // Default to German if not specified
+          return ClaimsdataLanguageEnum.De;
       }
     })(),
     accidentDate: dayjs(accidentDate).toDate(),
@@ -494,23 +540,40 @@ export function mapDTO(): Claimsdata {
     accidentDescription: accidentDetails,
     accidentPoliceNumber: processingNr,
 
-    hasVehicleDamage:
-      miscellaneousDamagesDetails.otherDamages === '1'
-        ? ClaimsdataHasVehicleDamageEnum.True
-        : ClaimsdataHasVehicleDamageEnum.False,
+    hasVehicleDamage: (() => {
+      switch (miscellaneousDamagesDetails.otherDamages) {
+        case 'Yes':
+          return ClaimsdataHasVehicleDamageEnum.True;
+        case 'No':
+          return ClaimsdataHasVehicleDamageEnum.False;
+        default:
+          return ClaimsdataHasVehicleDamageEnum.NotSpecified;
+      }
+    })(),
+
     vehicleDamageDescription: miscellaneousDamagesDetails.damages,
-
-    injuredPerson:
-      injuredDetails.injured === '1'
-        ? ClaimsdataInjuredPersonEnum.True
-        : ClaimsdataInjuredPersonEnum.False,
+    injuredPerson: (() => {
+      switch (injuredDetails.injured) {
+        case 'Yes':
+          return ClaimsdataInjuredPersonEnum.True;
+        case 'No':
+          return ClaimsdataInjuredPersonEnum.False;
+        default:
+          return ClaimsdataInjuredPersonEnum.NotSpecified;
+      }
+    })(),
     injuredPersonNumber: injuredDetails.injuredCount?.toString(),
-
-    witnessExists:
-      existingWitness === 'Yes'
-        ? ClaimsdataWitnessExistsEnum.True
-        : ClaimsdataWitnessExistsEnum.False, //Das Mapping der Enums muss angepasst werden not_specified ?
-    witnessNumber: witnessesCount?.toString(),
+    witnessExists: (() => {
+      switch (existingWitness) {
+        case 'Yes':
+          return ClaimsdataWitnessExistsEnum.True;
+        case 'No':
+          return ClaimsdataWitnessExistsEnum.False;
+        default:
+          return ClaimsdataWitnessExistsEnum.NotSpecified;
+      }
+    })(),
+    witnessCount: witnessesCount?.toString(),
     witness: witness,
 
     vehicleDriver: vehicleDriver,

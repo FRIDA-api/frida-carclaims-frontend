@@ -13,7 +13,7 @@
  */
 
 
-export const BASE_PATH = "https://stoplight.io/mocks/claimstobe/claims-data-schema/444459889".replace(/\/+$/, "");
+export const BASE_PATH = "https://stoplight.io/mocks/claimstobe/claims-data-schema/676129330".replace(/\/+$/, "");
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path
