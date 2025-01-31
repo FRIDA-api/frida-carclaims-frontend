@@ -138,14 +138,20 @@ export function mapDTO(): Claimsdata {
       damagedWindowImages: [],
       driverDamagedpartsGraphic: [
         VehicleDriverDriverDamagedpartsGraphicEnum.Dach,
-      ],
+      ], //Existiert nicht im Front End
 
       driverVisibleDamage: driverHolderVisibleDamage,
       driverComments: driverHolderNotes,
-      vehicleDrivingAbility:
-        victimReadyToDrive === 'Yes'
-          ? VehicleDriverVehicleDrivingAbilityEnum.True
-          : VehicleDriverVehicleDrivingAbilityEnum.False, //Das Mapping der Enums muss angepasst werden not_specified ?
+      vehicleDrivingAbility: (() => {
+        switch (victimReadyToDrive) {
+          case 'Yes':
+            return VehicleDriverVehicleDrivingAbilityEnum.True;
+          case 'No':
+            return VehicleDriverVehicleDrivingAbilityEnum.False;
+          default:
+            return VehicleDriverVehicleDrivingAbilityEnum.NotSpecified;
+        }
+      })(),
       damageCausedBy: (() => {
         switch (Number(whichDamageToVictim)) {
           case 1:
@@ -208,7 +214,8 @@ export function mapDTO(): Claimsdata {
         }[];
     } = otherDriverHolderFileUploads;
 
-    const otherDriverholderImgs: Array<VehicleDriverDamagedCarImagesInner> = createImageBase64(imgsURL, files);
+    const otherDriverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
+      createImageBase64(imgsURL, files);
 
     otherVehicleDriver = {
       personalInformation: {
@@ -237,13 +244,19 @@ export function mapDTO(): Claimsdata {
       damagedWindowImages: [],
       driverDamagedpartsGraphic: [
         VehicleDriverDriverDamagedpartsGraphicEnum.Dach,
-      ],
+      ], //Existiert nicht im Front End
       driverVisibleDamage: otherDriverHolderVisibleDamage,
       driverComments: otherDriverHolderNotes,
-      vehicleDrivingAbility:
-        otherVictimReadyToDrive === 'Yes'
-          ? VehicleDriverVehicleDrivingAbilityEnum.True
-          : VehicleDriverVehicleDrivingAbilityEnum.False, //Das Mapping der Enums muss angepasst werden not_specified ?
+      vehicleDrivingAbility: (() => {
+        switch (otherVictimReadyToDrive) {
+          case 'Yes':
+            return VehicleDriverVehicleDrivingAbilityEnum.True;
+          case 'No':
+            return VehicleDriverVehicleDrivingAbilityEnum.False;
+          default:
+            return VehicleDriverVehicleDrivingAbilityEnum.NotSpecified;
+        }
+      })(),
       damageCausedBy: (() => {
         switch (Number(otherWhichDamageToVictim)) {
           case 1:
@@ -291,6 +304,7 @@ export function mapDTO(): Claimsdata {
       carBrand,
       carModel,
       licenseNumber,
+      pretaxes,
       insuranceCompany,
       insuranceID,
       chassisNr,
@@ -299,6 +313,8 @@ export function mapDTO(): Claimsdata {
       validDateGreenCard,
       allRiskInsurance,
     } = insuranceHolder;
+
+    console.log('Normal: ' + allRiskInsurance);
 
     policyholder = {
       personalInformation: {
@@ -322,7 +338,16 @@ export function mapDTO(): Claimsdata {
         phoneNumber: insuranceHolderTelephone,
         emailAddress: insuranceHolderEmail,
       },
-      inputTaxDeduction: PolicyholderInputTaxDeductionEnum.False, // Das Mapping der Enums muss angepasst werden not_specified ?
+      inputTaxDeduction: (() => {
+        switch (Number(pretaxes)) {
+          case 1:
+            return PolicyholderInputTaxDeductionEnum.True;
+          case 0:
+            return PolicyholderInputTaxDeductionEnum.False;
+          default:
+            return PolicyholderInputTaxDeductionEnum.NotSpecified;
+        }
+      })(),
       vehicleMake: carBrand,
       vehicleType: carModel,
       vehicleReg: licenseNumber,
@@ -336,10 +361,16 @@ export function mapDTO(): Claimsdata {
           ? validDateGreenCard.toDate()
           : undefined
         : undefined,
-      comprehensiveInsurance:
-        allRiskInsurance === 'Ja'
-          ? PolicyholderComprehensiveInsuranceEnum.True
-          : PolicyholderComprehensiveInsuranceEnum.False, // Das Mapping der Enums muss angepasst werden not_specified ?
+      comprehensiveInsurance: (() => {
+        switch (Number(allRiskInsurance)) {
+          case 1:
+            return PolicyholderComprehensiveInsuranceEnum.True;
+          case 0:
+            return PolicyholderComprehensiveInsuranceEnum.False;
+          default:
+            return PolicyholderComprehensiveInsuranceEnum.NotSpecified;
+        }
+      })(),
     };
   }
   //Policyholder B
@@ -362,6 +393,7 @@ export function mapDTO(): Claimsdata {
       otherCarBrand,
       otherCarModel,
       otherLicenseNumber,
+      otherPretaxes,
       otherInsuranceCompany,
       otherInsuranceID,
       otherChassisNr,
@@ -370,6 +402,8 @@ export function mapDTO(): Claimsdata {
       otherValidDateGreenCard,
       otherAllRiskInsurance,
     } = otherInsuranceHolder;
+
+    console.log('OTHER: ' + otherAllRiskInsurance);
 
     otherPolicyholder = {
       personalInformation: {
@@ -393,7 +427,16 @@ export function mapDTO(): Claimsdata {
         phoneNumber: otherInsuranceHolderTelephone,
         emailAddress: otherInsuranceHolderEmail,
       },
-      inputTaxDeduction: PolicyholderInputTaxDeductionEnum.False, // Das Mapping der Enums muss angepasst werden not_specified ?
+      inputTaxDeduction: (() => {
+        switch (Number(otherPretaxes)) {
+          case 1:
+            return PolicyholderInputTaxDeductionEnum.True;
+          case 0:
+            return PolicyholderInputTaxDeductionEnum.False;
+          default:
+            return PolicyholderInputTaxDeductionEnum.NotSpecified;
+        }
+      })(),
       vehicleMake: otherCarBrand,
       vehicleType: otherCarModel,
       vehicleReg: otherLicenseNumber,
@@ -407,10 +450,16 @@ export function mapDTO(): Claimsdata {
           ? otherValidDateGreenCard.toDate()
           : undefined
         : undefined,
-      comprehensiveInsurance:
-        otherAllRiskInsurance === 'Ja'
-          ? PolicyholderComprehensiveInsuranceEnum.True
-          : PolicyholderComprehensiveInsuranceEnum.False, // Das Mapping der Enums muss angepasst werden not_specified ?
+      comprehensiveInsurance: (() => {
+        switch (Number(otherAllRiskInsurance)) {
+          case 1:
+            return PolicyholderComprehensiveInsuranceEnum.True;
+          case 0:
+            return PolicyholderComprehensiveInsuranceEnum.False;
+          default:
+            return PolicyholderComprehensiveInsuranceEnum.NotSpecified;
+        }
+      })(),
     };
   }
 
@@ -434,7 +483,7 @@ export function mapDTO(): Claimsdata {
                 return PersonFormOfAddressEnum.NotSpecified;
             }
           })(),
-          title: PersonTitleEnum.Dr,
+          title: PersonTitleEnum.Dr, //Existiert nicht im Front End
           lastName: witnesses.surName,
           firstName: witnesses.lastName,
           postalCode: witnesses.postalCode,
@@ -442,7 +491,7 @@ export function mapDTO(): Claimsdata {
           streetName: witnesses.street,
           streetNumber: witnesses.houseNr,
           phoneNumber: witnesses.telephone,
-          emailAddress: witnesses.email,
+          emailAddress: witnesses.email, //Existiert nicht im Front End
         },
       };
     });
@@ -538,10 +587,10 @@ export function mapDTO(): Claimsdata {
     accidentPoliceNumber: processingNr,
 
     hasVehicleDamage: (() => {
-      switch (miscellaneousDamagesDetails.otherDamages) {
-        case 'Yes':
+      switch (Number(miscellaneousDamagesDetails.otherDamages)) {
+        case 1:
           return ClaimsdataHasVehicleDamageEnum.True;
-        case 'No':
+        case 0:
           return ClaimsdataHasVehicleDamageEnum.False;
         default:
           return ClaimsdataHasVehicleDamageEnum.NotSpecified;
@@ -550,10 +599,10 @@ export function mapDTO(): Claimsdata {
 
     vehicleDamageDescription: miscellaneousDamagesDetails.damages,
     injuredPerson: (() => {
-      switch (injuredDetails.injured) {
-        case 'Yes':
+      switch (Number(injuredDetails.injured)) {
+        case 1:
           return ClaimsdataInjuredPersonEnum.True;
-        case 'No':
+        case 0:
           return ClaimsdataInjuredPersonEnum.False;
         default:
           return ClaimsdataInjuredPersonEnum.NotSpecified;
@@ -561,10 +610,10 @@ export function mapDTO(): Claimsdata {
     })(),
     injuredPersonNumber: injuredDetails.injuredCount?.toString(),
     witnessExists: (() => {
-      switch (existingWitness) {
-        case 'Yes':
+      switch (Number(existingWitness)) {
+        case 1:
           return ClaimsdataWitnessExistsEnum.True;
-        case 'No':
+        case 0:
           return ClaimsdataWitnessExistsEnum.False;
         default:
           return ClaimsdataWitnessExistsEnum.NotSpecified;

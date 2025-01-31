@@ -146,6 +146,7 @@ export type VehicleDriverDriverDamagedpartsGraphicEnum = typeof VehicleDriverDri
  * @export
  */
 export const VehicleDriverVehicleDrivingAbilityEnum = {
+    NotSpecified: 'not_specified',
     True: 'true',
     False: 'false'
 } as const;
