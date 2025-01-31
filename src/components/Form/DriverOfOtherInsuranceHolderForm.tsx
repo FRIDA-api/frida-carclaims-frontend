@@ -324,21 +324,21 @@ export function DriverOfOtherInsuranceHolderForm() {
                   </Typography>
                 </Grid>
                 <Grid item md={4} xs={12}>
-                  <Field
-                    name="otherDriverHolderDamagePlace"
-                    value={values.otherDriverHolderDamagePlace}
-                    onChange={handleChange}
-                    component={RadioGroup}
-                  >
-                    {DamagedPlace.map((dmg, i) => (
-                      <FormControlLabel
-                        value={dmg}
-                        key={`other-driverHolderDamagePlace-${i}`}
-                        control={<Radio />}
-                        label={dmg}
-                      />
-                    ))}
-                  </Field>
+                  <FormControl>
+                    <RadioGroup
+                      name="otherDriverHolderDamagePlace"
+                      onChange={handleChange}
+                    >
+                      {DamagedPlace.map((dmg, i) => (
+                        <FormControlLabel
+                          value={dmg}
+                          key={`other-driverHolderDamagePlace-${i}`}
+                          control={<Radio />}
+                          label={dmg}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
                 </Grid>
               </Stack>
             </Grid>
@@ -426,40 +426,44 @@ export function DriverOfOtherInsuranceHolderForm() {
               <Typography variant="body2">
                 * Ist das Fahrzeug vom Beschädigten fahrbereit?
               </Typography>
+              <FormControl>
+                <RadioGroup
+                  name="otherVictimReadyToDrive"
+                  onChange={handleChange}
+                >
+                  {Decisions.map((dec, i) => (
+                    <FormControlLabel
+                      label={dec === 'Yes' ? 'Ja' : 'Nein'}
+                      key={`other-victimReadyToDrive-${i}`}
+                      value={dec}
+                      control={<Radio />}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
               <Field
                 name="otherVictimReadyToDrive"
                 value={values.otherVictimReadyToDrive}
                 onChange={handleChange}
                 component={RadioGroup}
-              >
-                {Decisions.map((dec, i) => (
-                  <FormControlLabel
-                    label={dec === 'Yes' ? 'Ja' : 'Nein'}
-                    key={`other-victimReadyToDrive-${i}`}
-                    value={dec}
-                    control={<Radio />}
-                  />
-                ))}
-              </Field>
+              ></Field>
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="body2">
                 Wie kam es zu dem Schaden am Fahrzeug der beschädigten Person?
               </Typography>
-              <Field
-                name="otherWhichDamageToVictim"
-                value={values.otherWhichDamageToVictim}
-                component={RadioGroup}
-              >
-                {TypesOfDamage.map((dmg, i) => (
-                  <FormControlLabel
-                    label={dmg.label}
-                    value={dmg.key}
-                    key={`whichDamageToVictim-${i}`}
-                    control={<Radio />}
-                  />
-                ))}
-              </Field>
+              <FormControl>
+                <RadioGroup name="otherWhichDamageToVictim">
+                  {TypesOfDamage.map((dmg, i) => (
+                    <FormControlLabel
+                      label={dmg.label}
+                      value={dmg.key}
+                      key={`whichDamageToVictim-${i}`}
+                      control={<Radio />}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <ButtonGroup>
