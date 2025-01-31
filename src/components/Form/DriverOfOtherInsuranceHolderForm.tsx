@@ -453,7 +453,7 @@ export function DriverOfOtherInsuranceHolderForm() {
                 Wie kam es zu dem Schaden am Fahrzeug der beschädigten Person?
               </Typography>
               <FormControl>
-                <RadioGroup name="otherWhichDamageToVictim">
+                <RadioGroup name="otherWhichDamageToVictim" onChange={handleChange}>
                   {TypesOfDamage.map((dmg, i) => (
                     <FormControlLabel
                       label={dmg.label}

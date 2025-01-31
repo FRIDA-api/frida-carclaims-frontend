@@ -75,7 +75,7 @@ export function WitnessesForm() {
   async function sendClaimsdata() {
     sendClaimsdataRequest()
       .then((response: Claimsdata) => {
-        console.log('This is my Response: ' + JSON.stringify(response));
+        // console.log('This is my Response: ' + JSON.stringify(response));
         sessionStorage.setItem('claimsdataResult', JSON.stringify(response));
         handleForward();
       })

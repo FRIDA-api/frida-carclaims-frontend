@@ -144,7 +144,6 @@ export function DriverOfInsuranceHolderForm() {
           files, // Save files
           imgsURL, // Save image URLs
         };
-        console.log(values);
         const string = JSON.stringify(extendedValues);
         sessionStorage.setItem('driver-a', string);
         navigate('/injured');

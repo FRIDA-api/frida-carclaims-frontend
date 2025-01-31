@@ -147,7 +147,7 @@ export function mapDTO(): Claimsdata {
           ? VehicleDriverVehicleDrivingAbilityEnum.True
           : VehicleDriverVehicleDrivingAbilityEnum.False, //Das Mapping der Enums muss angepasst werden not_specified ?
       damageCausedBy: (() => {
-        switch (whichDamageToVictim) {
+        switch (Number(whichDamageToVictim)) {
           case 1:
             return VehicleDriverDamageCausedByEnum.Auffahren;
           case 2:
@@ -208,10 +208,7 @@ export function mapDTO(): Claimsdata {
         }[];
     } = otherDriverHolderFileUploads;
 
-    const otherDriverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
-      createImageBase64(imgsURL, files);
-
-      console.log("Test " + otherWhichDamageToVictim);
+    const otherDriverholderImgs: Array<VehicleDriverDamagedCarImagesInner> = createImageBase64(imgsURL, files);
 
     otherVehicleDriver = {
       personalInformation: {
@@ -248,7 +245,7 @@ export function mapDTO(): Claimsdata {
           ? VehicleDriverVehicleDrivingAbilityEnum.True
           : VehicleDriverVehicleDrivingAbilityEnum.False, //Das Mapping der Enums muss angepasst werden not_specified ?
       damageCausedBy: (() => {
-        switch (otherWhichDamageToVictim) {
+        switch (Number(otherWhichDamageToVictim)) {
           case 1:
             return VehicleDriverDamageCausedByEnum.Auffahren;
           case 2:
