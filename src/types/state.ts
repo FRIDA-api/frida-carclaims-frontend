@@ -78,7 +78,7 @@ export interface FormState {
   driverHolderDriverLicense?: string;
   driverHolderIssuer?: string;
   driverHolderFileUploads?: File[] | null;
-  driverHolderDamagePlace?: string;
+  driverHolderDamagePlace?: string[];
   driverHolderVisibleDamage?: string;
   driverHolderNotes?: string;
   victimReadyToDrive?: 'Yes' | 'No';
@@ -94,7 +94,7 @@ export interface FormState {
   otherDriverHolderDriverLicense?: string;
   otherDriverHolderIssuer?: string;
   otherDriverHolderFileUploads?: File[] | null;
-  otherDriverHolderDamagePlace?: string;
+  otherDriverHolderDamagePlace?: string[];
   otherDriverHolderVisibleDamage?: string;
   otherDriverHolderNotes?: string;
   otherVictimReadyToDrive?: 'Yes' | 'No' | '';
@@ -182,7 +182,7 @@ export interface DriverOfInsuranceHolderFormState {
   driverHolderDriverLicense?: string;
   driverHolderIssuer?: string;
   driverHolderFileUploads?: File[] | null;
-  driverHolderDamagePlace?: string;
+  driverHolderDamagePlace?: string[];
   driverHolderVisibleDamage?: string;
   driverHolderNotes?: string;
   victimReadyToDrive?: 'Yes' | 'No';
@@ -201,7 +201,7 @@ export interface DriverOfOtherInsuranceHolderFormState {
   otherDriverHolderDriverLicense?: string;
   otherDriverHolderIssuer?: string;
   otherDriverHolderFileUploads?: File[] | null;
-  otherDriverHolderDamagePlace?: string;
+  otherDriverHolderDamagePlace?: string[];
   otherDriverHolderVisibleDamage?: string;
   otherDriverHolderNotes?: string;
   otherVictimReadyToDrive?: 'Yes' | 'No' | '';

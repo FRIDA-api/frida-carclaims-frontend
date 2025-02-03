@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import {
+  Autocomplete,
   Button,
   ButtonGroup,
   FormControl,
@@ -38,6 +39,7 @@ import {
 } from '../HDIDropzone';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { on } from 'events';
 
 export function DriverOfInsuranceHolderForm() {
   const navigate = useNavigate();
@@ -149,7 +151,14 @@ export function DriverOfInsuranceHolderForm() {
         navigate('/injured');
       }}
     >
-      {({ errors, values, setValues, handleChange, handleSubmit }) => (
+      {({
+        errors,
+        values,
+        setFieldValue,
+        setValues,
+        handleChange,
+        handleSubmit,
+      }) => (
         <Grid item xs={12} id="driver-of-holder">
           <form onSubmit={handleSubmit}>
             <Typography variant="h6" className="mb-3">
@@ -301,28 +310,27 @@ export function DriverOfInsuranceHolderForm() {
             )}
             <Grid item xs={12} className="mb-3">
               <Stack direction={stackDirection} spacing={stackSpacing}>
+                <Autocomplete
+                  multiple
+                  id=""
+                  options={DamagedPlace.map((option) => option.label)}
+                  onChange={(event, value) =>
+                    setFieldValue('driverHolderDamagePlace', value)
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="outlined"
+                      label="Markieren Sie die Stelle, wo der Unfall passiert ist"
+                      placeholder="Unfallstellen"
+                    />
+                  )}
+                />
                 <Grid item xs={12} md={4}>
                   <img src={CarDamageImg} alt="Placeholder" width="100%" />
                   <Typography variant="body2">
                     * Markieren Sie die Stelle, wo der Unfall passiert ist
                   </Typography>
-                </Grid>
-                <Grid item md={4} xs={12}>
-                  <FormControl>
-                    <RadioGroup
-                      name="driverHolderDamagePlace"
-                      onChange={handleChange}
-                    >
-                      {DamagedPlace.map((dmg, i) => (
-                        <FormControlLabel
-                          value={dmg}
-                          key={`driverHolderDamagePlace-${i}`}
-                          control={<Radio />}
-                          label={dmg}
-                        />
-                      ))}
-                    </RadioGroup>
-                  </FormControl>
                 </Grid>
               </Stack>
             </Grid>

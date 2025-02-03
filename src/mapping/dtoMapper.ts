@@ -45,6 +45,49 @@ function createImageBase64(
   });
 }
 
+function mapDamagedParts(damagedParts: string[]) {
+  return damagedParts.map((place) => {
+    switch (place) {
+      case 'vorne links':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.VorneLinks;
+      case 'vorne rechts':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.VorneRechts;
+      case 'Seite vorne links':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.SeiteVorneLinks;
+      case 'Seite vorne rechts':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.SeiteVorneRechts;
+      case 'Seite hinten links':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.SeiteHintenLinks;
+      case 'Seite hinten rechts':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.SeiteHintenRechts;
+      case 'Fahrertür links':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.FahrertrLinks;
+      case 'Beifahrertür rechts':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.BeifahrertrRechts;
+      case 'hintere Tür links':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.HintereTrLinks;
+      case 'hintere Tür rechts':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.HintereTrRechts;
+      case 'hinten links':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.HintenLinks;
+      case 'hinten rechts':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.HintenRechts;
+      case 'Frontscheibe':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.Frontscheibe;
+      case 'Heckscheibe':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.Heckscheibe;
+      case 'Dach':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.Dach;
+      case 'Motorhaube':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.Motorhaube;
+      case 'Kofferraum':
+        return VehicleDriverDriverDamagedpartsGraphicEnum.Kofferraum;
+      default:
+        return VehicleDriverDriverDamagedpartsGraphicEnum.Dach;
+    }
+  });
+}
+
 export function mapDTO(): Claimsdata {
   // Log Session Storage Objects
   // console.log('carclaimsDetails');
@@ -88,11 +131,15 @@ export function mapDTO(): Claimsdata {
       driverHolderTelephone,
       driverHolderDriverLicense,
       driverHolderIssuer,
+      driverHolderDamagePlace,
       driverHolderVisibleDamage,
       driverHolderNotes,
       victimReadyToDrive,
       whichDamageToVictim,
     }: DriverOfInsuranceHolderFormState = JSON.parse(driverHolderString);
+
+    const driverDamagedpartsGraphic: VehicleDriverDriverDamagedpartsGraphicEnum[] =
+      driverHolderDamagePlace ? mapDamagedParts(driverHolderDamagePlace) : [];
 
     const driverHolderFileUploads = JSON.parse(driverHolderString);
     const {
@@ -108,6 +155,8 @@ export function mapDTO(): Claimsdata {
 
     const driverholderImgs: Array<VehicleDriverDamagedCarImagesInner> =
       createImageBase64(imgsURL, files);
+
+    console.log('Driver A: ' + driverHolderDamagePlace);
 
     vehicleDriver = {
       personalInformation: {
@@ -136,10 +185,7 @@ export function mapDTO(): Claimsdata {
 
       damagedCarImages: driverholderImgs,
       damagedWindowImages: [],
-      driverDamagedpartsGraphic: [
-        VehicleDriverDriverDamagedpartsGraphicEnum.Dach,
-      ], //Existiert nicht im Front End
-
+      driverDamagedpartsGraphic: driverDamagedpartsGraphic,
       driverVisibleDamage: driverHolderVisibleDamage,
       driverComments: driverHolderNotes,
       vehicleDrivingAbility: (() => {
@@ -196,11 +242,17 @@ export function mapDTO(): Claimsdata {
       otherDriverHolderTelephone,
       otherDriverHolderDriverLicense,
       otherDriverHolderIssuer,
+      otherDriverHolderDamagePlace,
       otherDriverHolderVisibleDamage,
       otherDriverHolderNotes,
       otherVictimReadyToDrive,
       otherWhichDamageToVictim,
     } = driverHolderOther;
+
+    const driverDamagedpartsGraphic: VehicleDriverDriverDamagedpartsGraphicEnum[] =
+      otherDriverHolderDamagePlace
+        ? mapDamagedParts(otherDriverHolderDamagePlace)
+        : [];
 
     const otherDriverHolderFileUploads = JSON.parse(driverHolderOtherString);
     const {
@@ -229,6 +281,7 @@ export function mapDTO(): Claimsdata {
               return PersonFormOfAddressEnum.NotSpecified;
           }
         })(),
+        title: PersonTitleEnum.Dr, //Existiert nicht im Front End
         lastName: otherDriverHolderSurName,
         firstName: otherDriverHolderName,
         postalCode: otherDriverHolderPostalCode,
@@ -241,10 +294,8 @@ export function mapDTO(): Claimsdata {
       driverLicensenumber: otherDriverHolderDriverLicense,
       licenseIssuedBy: otherDriverHolderIssuer,
       damagedCarImages: otherDriverholderImgs,
-      damagedWindowImages: [],
-      driverDamagedpartsGraphic: [
-        VehicleDriverDriverDamagedpartsGraphicEnum.Dach,
-      ], //Existiert nicht im Front End
+      damagedWindowImages: [], //Existiert nicht im Front End
+      driverDamagedpartsGraphic: driverDamagedpartsGraphic,
       driverVisibleDamage: otherDriverHolderVisibleDamage,
       driverComments: otherDriverHolderNotes,
       vehicleDrivingAbility: (() => {
@@ -284,6 +335,8 @@ export function mapDTO(): Claimsdata {
       garageLocation: 'Garage 1', //Existiert nicht im Front End
     };
   }
+
+  console.log('Driver A:', JSON.stringify(vehicleDriver, null, 2));
 
   //Policyholder A
   const insuranceHolderString = sessionStorage.getItem('insurance-holder-a');
@@ -462,6 +515,8 @@ export function mapDTO(): Claimsdata {
       })(),
     };
   }
+
+  console.log('Policyholder A:', JSON.stringify(policyholder, null, 2));
 
   //Witness
   const witnessesString = sessionStorage.getItem('witness');

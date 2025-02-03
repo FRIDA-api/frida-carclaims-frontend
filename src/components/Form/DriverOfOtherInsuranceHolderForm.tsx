@@ -12,6 +12,7 @@ import {
   TextField,
   Typography,
   ButtonGroup,
+  Autocomplete,
 } from '@mui/material';
 import { Field, Formik } from 'formik';
 import {
@@ -323,23 +324,20 @@ export function DriverOfOtherInsuranceHolderForm() {
                     * Markieren Sie die Stelle, wo der Unfall passiert ist
                   </Typography>
                 </Grid>
-                <Grid item md={4} xs={12}>
-                  <FormControl>
-                    <RadioGroup
-                      name="otherDriverHolderDamagePlace"
-                      onChange={handleChange}
-                    >
-                      {DamagedPlace.map((dmg, i) => (
-                        <FormControlLabel
-                          value={dmg}
-                          key={`other-driverHolderDamagePlace-${i}`}
-                          control={<Radio />}
-                          label={dmg}
-                        />
-                      ))}
-                    </RadioGroup>
-                  </FormControl>
-                </Grid>
+                <Autocomplete
+                  multiple
+                  id=""
+                  options={DamagedPlace.map((option) => option.label)}
+                  onChange={(event, value) => setFieldValue('otherDriverHolderDamagePlace', value)}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="outlined"
+                      label="Markieren Sie die Stelle, wo der Unfall passiert ist"
+                      placeholder="Unfallstellen"
+                    />
+                  )}
+                />
               </Stack>
             </Grid>
             <Grid item xs={12} md={8} className="mb-3">
@@ -453,7 +451,10 @@ export function DriverOfOtherInsuranceHolderForm() {
                 Wie kam es zu dem Schaden am Fahrzeug der beschädigten Person?
               </Typography>
               <FormControl>
-                <RadioGroup name="otherWhichDamageToVictim" onChange={handleChange}>
+                <RadioGroup
+                  name="otherWhichDamageToVictim"
+                  onChange={handleChange}
+                >
                   {TypesOfDamage.map((dmg, i) => (
                     <FormControlLabel
                       label={dmg.label}
