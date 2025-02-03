@@ -332,6 +332,7 @@ export function DriverOfOtherInsuranceHolderForm() {
                   renderInput={(params) => (
                     <TextField
                       {...params}
+                      inputProps= {{...params.inputProps, readOnly:true}}
                       variant="outlined"
                       label="Markieren Sie die Stelle, wo der Unfall passiert ist"
                       placeholder="Unfallstellen"
