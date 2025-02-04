@@ -31,7 +31,7 @@ export function OtherInsuranceHolderForm() {
     <Formik
       initialValues={initialValues}
       onSubmit={(values) => {
-        console.log(values);
+        console.log("OtherInsuranceHolderForm -> values", values)
         const string = JSON.stringify(values);
         sessionStorage.setItem('insurance-holder-b', string);
         navigate('/driver-of-insurance-holder-b');

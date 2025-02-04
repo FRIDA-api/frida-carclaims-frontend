@@ -145,14 +145,14 @@ export function DriverOfOtherInsuranceHolderForm() {
           files,
           imgsURL,
         };
-        console.log(JSON.parse(sessionStorage.getItem('carclaimsDetails')!));
-        console.log(JSON.parse(sessionStorage.getItem('injuredDetails')!));
-        console.log(
-          JSON.parse(sessionStorage.getItem('miscellaneousDamages')!)
-        );
-        console.log(JSON.parse(sessionStorage.getItem('insurance-holder-b')!));
-        console.log(JSON.parse(sessionStorage.getItem('driver-a')!));
-        console.log(JSON.parse(sessionStorage.getItem('insurance-holder-a')!));
+        // console.log(JSON.parse(sessionStorage.getItem('carclaimsDetails')!));
+        // console.log(JSON.parse(sessionStorage.getItem('injuredDetails')!));
+        // console.log(
+        //   JSON.parse(sessionStorage.getItem('miscellaneousDamages')!)
+        // );
+        // console.log(JSON.parse(sessionStorage.getItem('insurance-holder-b')!));
+        // console.log(JSON.parse(sessionStorage.getItem('driver-a')!));
+        // console.log(JSON.parse(sessionStorage.getItem('insurance-holder-a')!));
         const string = JSON.stringify(extendedValues);
         sessionStorage.setItem('driver-b', string);
         navigate('/witnesses');

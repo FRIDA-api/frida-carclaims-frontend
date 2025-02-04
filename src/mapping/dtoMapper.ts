@@ -392,6 +392,9 @@ export function mapDTO(): Claimsdata {
         emailAddress: insuranceHolderEmail,
       },
       inputTaxDeduction: (() => {
+        if (!pretaxes) {
+          return PolicyholderInputTaxDeductionEnum.NotSpecified;
+        }
         switch (Number(pretaxes)) {
           case 1:
             return PolicyholderInputTaxDeductionEnum.True;
@@ -415,6 +418,9 @@ export function mapDTO(): Claimsdata {
           : undefined
         : undefined,
       comprehensiveInsurance: (() => {
+        if (!allRiskInsurance) {
+          return PolicyholderComprehensiveInsuranceEnum.NotSpecified;
+        }
         switch (Number(allRiskInsurance)) {
           case 1:
             return PolicyholderComprehensiveInsuranceEnum.True;
@@ -481,6 +487,9 @@ export function mapDTO(): Claimsdata {
         emailAddress: otherInsuranceHolderEmail,
       },
       inputTaxDeduction: (() => {
+        if (!otherPretaxes) {
+          return PolicyholderInputTaxDeductionEnum.NotSpecified;
+        }
         switch (Number(otherPretaxes)) {
           case 1:
             return PolicyholderInputTaxDeductionEnum.True;
@@ -504,6 +513,9 @@ export function mapDTO(): Claimsdata {
           : undefined
         : undefined,
       comprehensiveInsurance: (() => {
+        if (!otherAllRiskInsurance) {
+          return PolicyholderComprehensiveInsuranceEnum.NotSpecified;
+        }
         switch (Number(otherAllRiskInsurance)) {
           case 1:
             return PolicyholderComprehensiveInsuranceEnum.True;
@@ -642,6 +654,9 @@ export function mapDTO(): Claimsdata {
     accidentPoliceNumber: processingNr,
 
     hasVehicleDamage: (() => {
+      if (!miscellaneousDamagesDetails?.otherDamages) {
+        return ClaimsdataHasVehicleDamageEnum.NotSpecified;
+      }
       switch (Number(miscellaneousDamagesDetails.otherDamages)) {
         case 1:
           return ClaimsdataHasVehicleDamageEnum.True;
@@ -654,6 +669,9 @@ export function mapDTO(): Claimsdata {
 
     vehicleDamageDescription: miscellaneousDamagesDetails.damages,
     injuredPerson: (() => {
+      if (!injuredDetails?.injured) {
+        return ClaimsdataInjuredPersonEnum.NotSpecified;
+      }
       switch (Number(injuredDetails.injured)) {
         case 1:
           return ClaimsdataInjuredPersonEnum.True;
@@ -665,6 +683,9 @@ export function mapDTO(): Claimsdata {
     })(),
     injuredPersonNumber: injuredDetails.injuredCount?.toString(),
     witnessExists: (() => {
+      if (!existingWitness) {
+        return ClaimsdataWitnessExistsEnum.NotSpecified;
+      }
       switch (Number(existingWitness)) {
         case 1:
           return ClaimsdataWitnessExistsEnum.True;
