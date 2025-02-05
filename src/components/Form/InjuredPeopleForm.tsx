@@ -28,6 +28,7 @@ export function InjuredPeopleForm() {
         console.log(values);
         const string = JSON.stringify(values);
         sessionStorage.setItem('injuredDetails', string);
+        window.scrollTo(0, 0);
         navigate('/miscellaneous-damage');
       }}
       // validateOnChange

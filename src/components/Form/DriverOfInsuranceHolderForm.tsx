@@ -148,6 +148,7 @@ export function DriverOfInsuranceHolderForm() {
         };
         const string = JSON.stringify(extendedValues);
         sessionStorage.setItem('driver-a', string);
+        window.scrollTo(0, 0);
         navigate('/injured');
       }}
     >
@@ -159,8 +160,8 @@ export function DriverOfInsuranceHolderForm() {
         handleChange,
         handleSubmit,
       }) => (
-        <Grid item xs={12} id="driver-of-holder">
-          <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={1} id="driver-of-holder">
             <Typography variant="h6" className="mb-3">
               Angaben zum Fahrzeuglenker A (Verursacher)
             </Typography>
@@ -181,7 +182,7 @@ export function DriverOfInsuranceHolderForm() {
             </Grid>
             {!isInsuranceHolder && (
               <>
-                <Grid item md={4} xs={12} className="mb-3">
+                <Grid item xs={12} className="mb-3">
                   <FormControl fullWidth>
                     <InputLabel>* Anrede</InputLabel>
                     <Field
@@ -198,7 +199,7 @@ export function DriverOfInsuranceHolderForm() {
                     </Field>
                   </FormControl>
                 </Grid>
-                <Grid item xs={12} md={8} className="mb-3">
+                <Grid item xs={12} className="mb-3">
                   <Stack direction={stackDirection} spacing={stackSpacing}>
                     <TextField
                       name="driverHolderName"
@@ -216,7 +217,7 @@ export function DriverOfInsuranceHolderForm() {
                     />
                   </Stack>
                 </Grid>
-                <Grid item xs={12} md={8} className="mb-3">
+                <Grid item xs={12} className="mb-3">
                   <Stack direction={stackDirection} spacing={stackSpacing}>
                     <TextField
                       name="driverHolderDriverLicense"
@@ -229,13 +230,13 @@ export function DriverOfInsuranceHolderForm() {
                       name="driverHolderIssuer"
                       value={values.driverHolderIssuer}
                       label="Ausgestellt durch:"
-                      helperText="Zulassungsbehörde"
+                      helperText="zuständige Fahrzulassungsbehörde"
                       onChange={handleChange}
                       fullWidth
                     />
                   </Stack>
                 </Grid>
-                <Grid item xs={12} md={8} className="mb-3">
+                <Grid item xs={12} className="mb-3">
                   <Stack direction={stackDirection} spacing={stackSpacing}>
                     <TextField
                       name="driverHolderStreet"
@@ -252,7 +253,7 @@ export function DriverOfInsuranceHolderForm() {
                     />
                   </Stack>
                 </Grid>
-                <Grid item xs={12} md={8} className="mb-3">
+                <Grid item xs={12} className="mb-3">
                   <Stack direction={stackDirection} spacing={stackSpacing}>
                     <TextField
                       name="driverHolderPostalCode"
@@ -269,7 +270,7 @@ export function DriverOfInsuranceHolderForm() {
                     />
                   </Stack>
                 </Grid>
-                <Grid item xs={12} md={8} className="mb-3">
+                <Grid item xs={12} className="mb-3">
                   <Stack direction={stackDirection} spacing={stackSpacing}>
                     <TextField
                       type="tel"
@@ -309,33 +310,36 @@ export function DriverOfInsuranceHolderForm() {
               </>
             )}
             <Grid item xs={12} className="mb-3">
-              <Stack direction={stackDirection} spacing={stackSpacing}>
-                <Autocomplete
-                  multiple
-                  id=""
-                  options={DamagedPlace.map((option) => option.label)}
-                  onChange={(event, value) =>
-                    setFieldValue('driverHolderDamagePlace', value)
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      inputProps= {{...params.inputProps, readOnly:true}}
-                      variant="outlined"
-                      label="Markieren Sie die Stelle, wo der Unfall passiert ist"
-                      placeholder="Unfallstellen"
-                    />
-                  )}
-                />
-                <Grid item xs={12} md={4}>
+              <Stack spacing={stackSpacing} direction={stackDirection}>
+                <Grid item xs={12} md={4}  className="mb-3">
                   <img src={CarDamageImg} alt="Placeholder" width="100%" />
                   <Typography variant="body2">
                     * Markieren Sie die Stelle, wo der Unfall passiert ist
                   </Typography>
                 </Grid>
+                <Grid item xs={12} md={8}>
+                  <Autocomplete
+                    multiple
+                    id=""
+                    options={DamagedPlace.map((option) => option.label)}
+                    onChange={(event, value) =>
+                      setFieldValue('driverHolderDamagePlace', value)
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        inputProps={{ ...params.inputProps, readOnly: true }}
+                        variant="outlined"
+                        label="Markieren Sie die Unfallstellen"
+                        placeholder="Unfallstellen"
+                      />
+                    )}
+                  />
+                </Grid>
               </Stack>
             </Grid>
-            <Grid item xs={12} md={8} className="mb-3">
+
+            <Grid item xs={12} className="mb-3">
               <TextField
                 multiline
                 fullWidth
@@ -347,7 +351,7 @@ export function DriverOfInsuranceHolderForm() {
                 onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={12} md={8} className="mb-3">
+            <Grid item xs={12} className="mb-3">
               <TextField
                 minRows={4}
                 variant="outlined"
@@ -359,8 +363,11 @@ export function DriverOfInsuranceHolderForm() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={6} className="mb-3">
+            <Grid item xs={12} md={12} className="mb-3">
               <Grid item xs={12} className="img-attachment">
+                <Typography variant="h6" className="mb-3">
+                  Anhänge
+                </Typography>
                 <div
                   {...getRootProps({
                     className: 'dropzone',
@@ -410,7 +417,7 @@ export function DriverOfInsuranceHolderForm() {
                 </div>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={4} className="mb-3">
+            <Grid item xs={12} className="mb-3">
               <Typography variant="body2">
                 * Ist das Fahrzeug vom Beschädigten fahrbereit?
               </Typography>
@@ -454,8 +461,8 @@ export function DriverOfInsuranceHolderForm() {
                 </Button>
               </ButtonGroup>
             </Grid>
-          </form>
-        </Grid>
+          </Grid>
+        </form>
       )}
     </Formik>
   );

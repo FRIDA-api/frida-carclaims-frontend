@@ -103,6 +103,7 @@ export function WitnessesForm() {
         // console.log(JSON.parse(sessionStorage.getItem('insurance-holder-a')!));
         // console.log(values);
         // alert('Submit data');
+        window.scrollTo(0, 0);
       }}
       // validationSchema={witnessesFormValidator}
     >

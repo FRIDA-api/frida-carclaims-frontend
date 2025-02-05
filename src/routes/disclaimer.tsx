@@ -78,7 +78,10 @@ export default function DisclaimerPage() {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => navigate('/accident')}
+        onClick={() => {
+          navigate('/accident');
+          window.scrollTo(0, 0);
+        }}
       >
         Weiter
       </Button>

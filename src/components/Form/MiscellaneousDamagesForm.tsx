@@ -48,6 +48,7 @@ export function MiscellaneousDamagesForm() {
         console.log(values);
         const string = JSON.stringify(values);
         sessionStorage.setItem('miscellaneousDamages', string);
+        window.scrollTo(0, 0);
         navigate('/insurance-holder-b');
       }}
     >

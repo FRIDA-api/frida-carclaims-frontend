@@ -53,6 +53,7 @@ export function InsuranceHolderForm() {
         console.log("InsuranceHolderForm -> values", values)
         const string = JSON.stringify(values);
         sessionStorage.setItem('insurance-holder-a', string);
+        window.scrollTo(0, 0);
         navigate('/driver-of-insurance-holder-a');
       }}
     >

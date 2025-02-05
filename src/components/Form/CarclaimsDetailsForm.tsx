@@ -84,6 +84,7 @@ export function CarclaimsDetailsForm() {
         console.log(values);
         const string = JSON.stringify(values);
         sessionStorage.setItem('carclaimsDetails', string);
+        window.scrollTo(0, 0);
         navigate('/insurance-holder-a');
       }}
       // validationSchema={carclaimsDatailsValidator}

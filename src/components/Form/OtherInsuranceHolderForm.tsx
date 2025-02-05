@@ -34,6 +34,7 @@ export function OtherInsuranceHolderForm() {
         console.log("OtherInsuranceHolderForm -> values", values)
         const string = JSON.stringify(values);
         sessionStorage.setItem('insurance-holder-b', string);
+        window.scrollTo(0, 0);
         navigate('/driver-of-insurance-holder-b');
       }}
     >

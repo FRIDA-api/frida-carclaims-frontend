@@ -155,12 +155,13 @@ export function DriverOfOtherInsuranceHolderForm() {
         // console.log(JSON.parse(sessionStorage.getItem('insurance-holder-a')!));
         const string = JSON.stringify(extendedValues);
         sessionStorage.setItem('driver-b', string);
+        window.scrollTo(0, 0);
         navigate('/witnesses');
       }}
     >
       {({ values, errors, handleSubmit, handleChange, setFieldValue }) => (
         <form onSubmit={handleSubmit}>
-          <Grid item xs={12} id="other-driver-of-holder">
+          <Grid container spacing={1} id="other-driver-of-holder">
             <Typography variant="h6" className="mb-3">
               Angaben zum Fahrzeuglenker B
             </Typography>
@@ -181,7 +182,7 @@ export function DriverOfOtherInsuranceHolderForm() {
             </Grid>
             {!isInsuranceHolder && (
               <>
-                <Grid item md={4} xs={12} className="mb-3">
+                <Grid item xs={12} md={8} className="mb-3">
                   <FormControl fullWidth>
                     <InputLabel>* Anrede</InputLabel>
                     <Field
@@ -289,7 +290,7 @@ export function DriverOfOtherInsuranceHolderForm() {
             )}
             {isInsuranceHolder && (
               <>
-                <Grid item xs={12} className="mb-3">
+                <Grid item xs={12} md={8} className="mb-3">
                   <Stack direction="column" spacing={stackSpacing}>
                     <b>Anrede: </b>{' '}
                     <p>
@@ -316,29 +317,33 @@ export function DriverOfOtherInsuranceHolderForm() {
               </>
             )}
 
-            <Grid item xs={12} className="mb-3">
+            <Grid item xs={12} md={8} className="mb-3">
               <Stack direction={stackDirection} spacing={stackSpacing}>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} className="mb-3">
                   <img src={CarDamageImg} alt="Placeholder" width="100%" />
                   <Typography variant="body2">
                     * Markieren Sie die Stelle, wo der Unfall passiert ist
                   </Typography>
                 </Grid>
-                <Autocomplete
-                  multiple
-                  id=""
-                  options={DamagedPlace.map((option) => option.label)}
-                  onChange={(event, value) => setFieldValue('otherDriverHolderDamagePlace', value)}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      inputProps= {{...params.inputProps, readOnly:true}}
-                      variant="outlined"
-                      label="Markieren Sie die Stelle, wo der Unfall passiert ist"
-                      placeholder="Unfallstellen"
-                    />
-                  )}
-                />
+                <Grid item xs={12} md={8}>
+                  <Autocomplete
+                    multiple
+                    id=""
+                    options={DamagedPlace.map((option) => option.label)}
+                    onChange={(event, value) =>
+                      setFieldValue('otherDriverHolderDamagePlace', value)
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        inputProps={{ ...params.inputProps, readOnly: true }}
+                        variant="outlined"
+                        label="Markieren Sie die Unfallstellen"
+                        placeholder="Unfallstellen"
+                      />
+                    )}
+                  />
+                </Grid>
               </Stack>
             </Grid>
             <Grid item xs={12} md={8} className="mb-3">
@@ -365,11 +370,11 @@ export function DriverOfOtherInsuranceHolderForm() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={4} className="mb-3">
+            <Grid item xs={12} md={8} className="mb-3">
               <Typography variant="h6" className="mb-3">
                 Anhänge
               </Typography>
-              <Grid item xs={12} md={12} lg={6} className="mb-3">
+              <Grid item xs={12}>
                 <Grid item xs={12} className="img-attachment">
                   <div
                     {...getRootProps({
@@ -421,7 +426,7 @@ export function DriverOfOtherInsuranceHolderForm() {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={4} className="mb-3">
+            <Grid item xs={12} md={8} className="mb-3">
               <Typography variant="body2">
                 * Ist das Fahrzeug vom Beschädigten fahrbereit?
               </Typography>
@@ -467,7 +472,7 @@ export function DriverOfOtherInsuranceHolderForm() {
                 </RadioGroup>
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} md={8}>
               <ButtonGroup>
                 <Button color="error" variant="contained" onClick={handlePrev}>
                   Zurück

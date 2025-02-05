@@ -1,7 +1,8 @@
 import React from 'react';
 import JSONPretty from 'react-json-pretty';
-import { Button } from '@mui/material';
+import { Button, Grid, Stack } from '@mui/material';
 import arrowImage from './../../assets/images/arrow_forward.svg';
+import { stackDirection } from '../../config';
 
 export function ResultForm() {
   const styles: { [key: string]: React.CSSProperties } = {
@@ -84,60 +85,57 @@ export function ResultForm() {
   };
 
   return (
-    // <div style={styles.gradientBackground}>
-    <div style={styles.container}>
-      <div style={styles.column}>
-        <h2>Request</h2>
-        <JSONPretty
-          mainStyle="line-height:1.3;color:#66d9ef;background:#333;overflow:auto;padding:10px;rgb(204, 204, 204);border-radius: 4px"
-          errorStyle="line-height:1.3;color:#66d9ef;background:#272822;overflow:auto;"
-          keyStyle="color:#f92672;"
-          stringStyle="color:#fd971f;"
-          valueStyle="color:#a6e22e;"
-          booleanStyle="color:#ac81fe;"
-          id="json-pretty"
-          data={JSON.stringify(parsedRequest, null, 2)}
-        />
-        <Button
-          style={styles.button}
-          variant="contained"
-          onClick={() =>
-            copyToClipboard(
-              parsedRequest ? JSON.stringify(parsedRequest, null, 2) : ''
-            )
-          }
-        >
-          JSON Kopieren
-        </Button>
-      </div>
-      <div style={styles.imageContainer}>
-        <img src={arrowImage} alt="Arrow" />
-      </div>
-      <div style={styles.column}>
-        <h2>Response</h2>
-        <JSONPretty
-          mainStyle="line-height:1.3;color:#66d9ef;background:#333;overflow:auto;padding:10px;border-radius: 4px"
-          errorStyle="line-height:1.3;color:#66d9ef;background:#272822;overflow:auto;"
-          keyStyle="color:#f92672;"
-          stringStyle="color:#fd971f;"
-          valueStyle="color:#a6e22e;"
-          booleanStyle="color:#ac81fe;"
-          id="json-pretty"
-          data={JSON.stringify(parsedResult, null, 2)}
-        />
-        <Button
-          style={styles.button}
-          variant="contained"
-          onClick={() =>
-            copyToClipboard(
-              parsedResult ? JSON.stringify(parsedResult, null, 2) : ''
-            )
-          }
-        >
-          JSON Kopieren
-        </Button>
-      </div>
-    </div>
-    // </div>
+    <Grid container>
+      <Stack direction={stackDirection} spacing={4}>
+        <Grid item xs={12} md={6}>
+          <h2>Request</h2>
+          <JSONPretty
+            mainStyle="line-height:1.3;color:#66d9ef;background:#333;overflow:auto;padding:10px;rgb(204, 204, 204);border-radius: 4px"
+            errorStyle="line-height:1.3;color:#66d9ef;background:#272822;overflow:auto;"
+            keyStyle="color:#f92672;"
+            stringStyle="color:#fd971f;"
+            valueStyle="color:#a6e22e;"
+            booleanStyle="color:#ac81fe;"
+            id="json-pretty"
+            data={JSON.stringify(parsedRequest, null, 2)}
+          />
+          <Button
+            style={styles.button}
+            variant="contained"
+            onClick={() =>
+              copyToClipboard(
+                parsedRequest ? JSON.stringify(parsedRequest, null, 2) : ''
+              )
+            }
+          >
+            JSON Kopieren
+          </Button>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <h2>Response</h2>
+          <JSONPretty
+            mainStyle="line-height:1.3;color:#66d9ef;background:#333;overflow:auto;padding:10px;border-radius: 4px"
+            errorStyle="line-height:1.3;color:#66d9ef;background:#272822;overflow:auto;"
+            keyStyle="color:#f92672;"
+            stringStyle="color:#fd971f;"
+            valueStyle="color:#a6e22e;"
+            booleanStyle="color:#ac81fe;"
+            id="json-pretty"
+            data={JSON.stringify(parsedResult, null, 2)}
+          />
+          <Button
+            style={styles.button}
+            variant="contained"
+            onClick={() =>
+              copyToClipboard(
+                parsedResult ? JSON.stringify(parsedResult, null, 2) : ''
+              )
+            }
+          >
+            JSON Kopieren
+          </Button>
+        </Grid>
+      </Stack>
+    </Grid>
   );
 }
