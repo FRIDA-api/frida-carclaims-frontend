@@ -14,7 +14,7 @@ export default function DisclaimerPage() {
           Um der seit dem 1. Januar 2008 geltenden Reform des
           Versicherungsvertragsgesetzes (VVG) zu entsprechen, sind wir nach § 28
           VVG dazu verpflichtet, Sie zunächst auf die Punkte Auskunfts- und
-          Aufklärungsobliegenheitenì und Leistungsfreiheit aufmerksam zu machen.
+          Aufklärungsobliegenheiten und Leistungsfreiheit aufmerksam zu machen.
           Der Inhalt der folgenden Belehrungen ist durch das VVG vorgegeben.
         </Typography>
         <Typography variant="body1">
@@ -32,20 +32,20 @@ export default function DisclaimerPage() {
         </Typography>
         <Typography variant="body1">
           <b>Leistungsfreiheit </b> <br />
-          Machen Sie uns entgegen der vertraglichen Vereinbarungen vors‰tzlich
-          keine oder nicht wahrheitsgem‰fle Angaben oder stellen Sie uns
-          vors‰tzlich verlangte Belege nicht zur Verfügung, verlieren Sie Ihren
-          Anspruch auf die Versicherungsleistung. Verstoflen Sie grob fahrl‰ssig
+          Machen Sie uns entgegen der vertraglichen Vereinbarungen vorsätzlich
+          keine oder nicht wahrheitsgemäße Angaben oder stellen Sie uns
+          vorsätzlich verlangte Belege nicht zur Verfügung, verlieren Sie Ihren
+          Anspruch auf die Versicherungsleistung. Verstoßen Sie grob fahrlässig
           gegen diese Obliegenheiten, verlieren Sie Ihren Anspruch zwar nicht
           vollständig, aber wir können unsere Leistung im Verhältnis zur Schwere
           Ihres Verschuldens kürzen. Eine Kürzung erfolgt nicht, wenn Sie
-          nachweisen, dass Sie die Obliegenheit nicht grob fahrl‰ssig verletzt
+          nachweisen, dass Sie die Obliegenheit nicht grob fahrlässig verletzt
           haben. Trotz Verletzung Ihrer Obliegenheiten zur Auskunft, zur
           Aufklärung oder zur Beschaffung von Belegen bleiben wir jedoch
           insoweit zur Leistung verpflichtet, als Sie nachweisen, dass die
           vorsätzliche oder grob fahrlässige Obliegenheitsverletzung weder für
           die Feststellung des Versicherungsfalls noch für die Feststellung oder
-          den Umfang unserer Leistungspflicht urs‰chlich war. Verletzen Sie die
+          den Umfang unserer Leistungspflicht ursächlich war. Verletzen Sie die
           Obliegenheit zur Auskunft, zur Aufklärung oder zur Beschaffung von
           Belegen arglistig, werden wir in jedem Fall von unserer Verpflichtung
           zur Leistung frei.
@@ -58,7 +58,7 @@ export default function DisclaimerPage() {
         </Typography>
         <Typography variant="body1">
           <b>Versicherungsombudsmann</b> <br />
-          Der Versicherungsombudsmann ist eine unabh‰ngige und für den
+          Der Versicherungsombudsmann ist eine unabhängige und für den
           Verbraucher kostenfrei arbeitende, anerkannte
           Verbraucherschlichtungsstelle. Als Mitglied verpflichten wir uns,
           unsere Kunden über die Möglichkeit eines Schlichtungsverfahrens zu
