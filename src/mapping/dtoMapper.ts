@@ -537,11 +537,11 @@ export function mapDTO(): Claimsdata {
     existingWitness = JSON.parse(witnessesString).existingWitness;
     witnessesCount = JSON.parse(witnessesString).witnessesCount;
 
-    witness = witnesses.map((witnesses) => {
+    witness = witnesses.map((witness) => {
       return {
         personalInformation: {
           formOfAddress: (() => {
-            switch (witnesses.salutation) {
+            switch (witness.salutation) {
               case 'Herr':
                 return PersonFormOfAddressEnum.Herr;
               case 'Frau':
@@ -551,14 +551,14 @@ export function mapDTO(): Claimsdata {
             }
           })(),
           title: PersonTitleEnum.Dr, //Existiert nicht im Front End
-          lastName: witnesses.surName,
-          firstName: witnesses.lastName,
-          postalCode: witnesses.postalCode,
-          city: witnesses.place,
-          streetName: witnesses.street,
-          streetNumber: witnesses.houseNr,
-          phoneNumber: witnesses.telephone,
-          emailAddress: witnesses.email, //Existiert nicht im Front End
+          lastName: witness.surName,
+          firstName: witness.lastName,
+          postalCode: witness.postalCode,
+          city: witness.place,
+          streetName: witness.street,
+          streetNumber: witness.houseNr,
+          phoneNumber: witness.telephone,
+          emailAddress: witness.email,
         },
       };
     });

@@ -88,6 +88,7 @@ export function ResultForm() {
     <Grid container spacing={4}>
       <Grid item xs={12} md={6}>
         <h2>Request</h2>
+        <p>Validated against the "Open API Schema of Carclaims" and send towards "Stoplight"</p>
         <JSONPretty
           mainStyle="line-height:1.3;color:#66d9ef;background:#333;overflow:auto;padding:10px;rgb(204, 204, 204);border-radius: 4px"
           errorStyle="line-height:1.3;color:#66d9ef;background:#272822;overflow:auto;"
@@ -112,6 +113,7 @@ export function ResultForm() {
       </Grid>
       <Grid item xs={12} md={6} className="mb-3">
         <h2>Response</h2>
+        <p>Response data from the "Stoplight Mock Service"</p>
         <JSONPretty
           mainStyle="line-height:1.3;color:#66d9ef;background:#333;overflow:auto;padding:10px;border-radius: 4px"
           errorStyle="line-height:1.3;color:#66d9ef;background:#272822;overflow:auto;"
